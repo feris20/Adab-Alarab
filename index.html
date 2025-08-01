@@ -43,6 +43,7 @@
             border-radius: 20px;
             box-shadow: 0 0 30px rgba(0, 247, 255, 0.2);
             border: 1px solid var(--accent-color);
+            overflow: hidden;
         }
 
         .screen { display: none; }
@@ -135,8 +136,15 @@
             gap: 10px;
             margin-bottom: 1.5rem;
         }
+        
+        #outsider-guess-words {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+            gap: 10px;
+            margin-top: 1.5rem;
+        }
 
-        .topic-card {
+        .topic-card, .word-choice-btn {
             background-color: var(--primary-bg);
             padding: 15px;
             border-radius: 10px;
@@ -194,7 +202,7 @@
             left: 0;
             width: 100%;
             height: 100%;
-            background-color: rgba(0, 0, 0, 0.8);
+            background-color: rgba(0, 0, 0, 0.85);
             display: flex;
             justify-content: center;
             align-items: center;
@@ -211,21 +219,21 @@
             padding: 30px;
             border-radius: 15px;
             border: 1px solid var(--accent-color);
+            box-shadow: 0 0 40px rgba(0, 247, 255, 0.4);
             width: 90%;
             max-width: 500px;
-            max-height: 80vh;
+            max-height: 90vh;
             overflow-y: auto;
             text-align: center;
         }
         
-        /* --- ⭐ تصميم خاص بالروليت --- */
         #roulette-display {
-            font-size: 4rem;
+            font-size: 3.5rem;
             font-weight: bold;
             color: var(--accent-color);
             margin: 2rem 0;
             padding: 1rem;
-            min-height: 120px;
+            min-height: 110px;
             display: flex;
             justify-content: center;
             align-items: center;
@@ -233,6 +241,13 @@
             border: 2px dashed var(--accent-color);
             border-radius: 15px;
         }
+
+        #reveal-result-message {
+            font-size: 1.4rem;
+            line-height: 1.7;
+            min-height: 100px;
+        }
+
     </style>
 </head>
 <body>
@@ -262,6 +277,12 @@
         <div id="game-screen" class="screen">
             <div id="game-screen-content"></div>
         </div>
+        
+        <div id="outsider-guess-screen" class="screen">
+            <h2 id="outsider-guess-title"></h2>
+            <p>ما هي الكلمة السرية التي كنت تظن أنهم يتحدثون عنها؟</p>
+            <div id="outsider-guess-words"></div>
+        </div>
 
         <div id="results-screen" class="screen">
             <h2 id="results-title">النتيجة النهائية</h2>
@@ -274,51 +295,48 @@
     
     <div id="how-to-play-modal" class="modal">
         <div class="modal-content">
-            <h2 style="margin-top:0;">طريقة اللعب</h2>
-            <p><strong>الهدف:</strong> معرفة اللاعب "برا السالفة".</p>
-            <ol style="text-align: right; padding-right: 20px;">
-                <li style="margin-bottom: 10px;">الجميع (ما عدا واحد) سيحصلون على نفس الكلمة السرية.</li>
-                <li style="margin-bottom: 10px;">اللاعب "برا السالفة" لن يعرف الكلمة، ويعرف فقط الموضوع العام.</li>
-                <li style="margin-bottom: 10px;">يبدأ كل لاعب بطرح سؤال على اللاعب الذي يليه، ويجب أن تكون الإجابات ذكية بحيث لا تكشف الكلمة ولكن تثبت أنك تعرفها.</li>
-                <li style="margin-bottom: 10px;">بعد انتهاء الأسئلة، يصوت الجميع على من يعتقدون أنه "برا السالفة".</li>
-                <li style="margin-bottom: 10px;">إذا كشفتم اللاعب الصحيح، يحصل كل من صوت له على نقطة. وإذا فشلتم، يحصل "برا السالفة" على نقطتين!</li>
-            </ol>
-            <button id="close-how-to-play-btn" class="button">فهمت</button>
+             <h2 style="margin-top:0;">طريقة اللعب</h2>
+             <p><strong>الهدف:</strong> كشف اللاعب "برا السالفة" أو خداع اللاعبين إذا كنت أنت هو!</p>
+             <ol style="text-align: right; padding-right: 20px; line-height: 1.8;">
+                 <li>الجميع (ما عدا واحد) سيحصلون على نفس الكلمة السرية.</li>
+                 <li>اللاعب "برا السالفة" لن يعرف الكلمة، ويعرف فقط الموضوع العام.</li>
+                 <li>يتناوب اللاعبون بطرح الأسئلة والإجابة عليها بذكاء.</li>
+                 <li>بعد جولة الأسئلة، يصوت الجميع على من يعتقدون أنه "برا السالفة".</li>
+                 <li>**النقاط:**
+                    <ul style="padding-right: 20px; margin-top: 5px;">
+                        <li>إذا كشفتم اللاعب الصحيح: كل من صوّت له يحصل على نقطتين.</li>
+                        <li>إذا فشلتم: اللاعب "برا السالفة" يحصل على 3 نقاط.</li>
+                    </ul>
+                 </li>
+                <li>**تحدي "برا السالفة":** بعد كشفه، يجب عليه تخمين الكلمة السرية. إذا أخطأ، يُخصم منه نقطة.</li>
+             </ol>
+             <button id="close-how-to-play-btn" class="button">فهمت</button>
         </div>
     </div>
 
     <div id="roulette-modal" class="modal">
         <div class="modal-content">
-            <h2>جاري كشف المشتبه به...</h2>
+            <h2>جاري الكشف عن الحقيقة...</h2>
             <div id="roulette-display"></div>
-            <p>من هو برا السالفة؟</p>
+            <div id="reveal-result-message"></div>
         </div>
     </div>
 
-    <audio id="click-sound" src="https://cdn.pixabay.com/download/audio/2022/03/15/audio_24915b8e9f.mp3" preload="auto"></audio>
-    <audio id="reveal-sound" src="https://cdn.pixabay.com/download/audio/2022/11/22/audio_fb4b370198.mp3" preload="auto"></audio>
-    <audio id="success-sound" src="https://cdn.pixabay.com/download/audio/2022/01/18/audio_82c9e7b235.mp3" preload="auto"></audio>
-    <audio id="fail-sound" src="https://cdn.pixabay.com/download/audio/2022/03/10/audio_c3ffc74f5d.mp3" preload="auto"></audio>
-    <audio id="roulette-sound" src="https://cdn.pixabay.com/download/audio/2022/03/13/audio_2c524a737e.mp3" loop preload="auto"></audio>
+    <audio id="click-sound" src="https://s3-us-west-2.amazonaws.com/s.cdpn.io/105586/ui_aud_click.mp3" preload="auto"></audio>
+    <audio id="reveal-sound" src="https://s3-us-west-2.amazonaws.com/s.cdpn.io/105586/ui_aud_swoosh.mp3" preload="auto"></audio>
+    <audio id="success-sound" src="https://s3-us-west-2.amazonaws.com/s.cdpn.io/105586/ui_aud_notification.mp3" preload="auto"></audio>
+    <audio id="fail-sound" src="https://s3-us-west-2.amazonaws.com/s.cdpn.io/105586/ui_aud_error.mp3" preload="auto"></audio>
+    <audio id="roulette-sound" src="https://github.com/universome/fcc-drum-machine/blob/master/src/assets/sounds/fast-typing.mp3?raw=true" loop preload="auto"></audio>
 
 
     <script>
         document.addEventListener('DOMContentLoaded', () => {
 
-            // --- حالة اللعبة (Game State) ---
             const gameState = {
-                players: [],
-                selectedTopic: null,
-                secretWord: null,
-                outsider: null,
-                currentPlayerIndex: 0,
-                turn: 0,
-                votes: {},
-                scores: {},
-                gamePhase: 'home',
+                players: [], selectedTopic: null, secretWord: null, outsider: null,
+                currentPlayerIndex: 0, votes: {}, scores: {}, accusedPlayer: null,
             };
 
-            // --- قاعدة بيانات الكلمات ---
             const keywords = {
                 'طعام': { words: ['بيتزا', 'برجر', 'سوشي', 'كبسة', 'شاورما', 'فلافل', 'منسف', 'كنافة'], icon: '🍕' },
                 'سفر': { words: ['مطار', 'جواز سفر', 'فندق', 'شاطئ', 'طائرة', 'تذكرة', 'حقيبة', 'تأشيرة'], icon: '✈️' },
@@ -330,7 +348,6 @@
                 'في المنزل': { words: ['تلفاز', 'سرير', 'ثلاجة', 'أريكة', 'ميكروويف', 'ستائر', 'طاولة', 'مصباح'], icon: '🏠' },
             };
 
-            // --- عناصر الواجهة ---
             const elements = {
                 screens: document.querySelectorAll('.screen'),
                 playerNameInput: document.getElementById('player-name-input'),
@@ -339,43 +356,41 @@
                 startGameBtn: document.getElementById('start-game-btn'),
                 topicSelectionDiv: document.getElementById('topic-selection'),
                 gameScreenContent: document.getElementById('game-screen-content'),
-                howToPlayModal: document.getElementById('how-to-play-modal'),
                 rouletteModal: document.getElementById('roulette-modal'),
                 rouletteDisplay: document.getElementById('roulette-display'),
+                revealResultMessage: document.getElementById('reveal-result-message'),
                 resultsTitle: document.getElementById('results-title'),
                 resultsDetails: document.getElementById('results-details'),
                 finalScores: document.getElementById('final-scores'),
+                outsiderGuessScreen: document.getElementById('outsider-guess-screen'),
+                outsiderGuessTitle: document.getElementById('outsider-guess-title'),
+                outsiderGuessWords: document.getElementById('outsider-guess-words'),
+                restartGameBtn: document.getElementById('restart-game-btn'),
             };
 
             // --- وظائف الصوت ---
             function playSound(soundId) {
                 try {
-                    const sound = document.getElementById(soundId + '-sound');
+                    const sound = document.getElementById(`${soundId}-sound`);
                     sound.currentTime = 0;
                     sound.play();
-                } catch (e) {
-                    console.log(`Could not play sound: ${soundId}`);
-                }
+                } catch (e) { console.error(`Could not play sound: ${soundId}`, e); }
             }
 
             function stopSound(soundId) {
                  try {
-                    document.getElementById(soundId + '-sound').pause();
-                } catch (e) {
-                    console.log(`Could not stop sound: ${soundId}`);
-                }
+                    const sound = document.getElementById(`${soundId}-sound`);
+                    sound.pause();
+                } catch (e) { console.error(`Could not stop sound: ${soundId}`, e); }
             }
             
-            // --- وظائف الواجهة الرئيسية ---
+            // --- وظائف الواجهة ---
             function showScreen(screenId) {
                 elements.screens.forEach(s => s.classList.toggle('active', s.id === screenId));
             }
 
             function showModal(modalId, show) {
-                const modal = document.getElementById(modalId);
-                if (modal) {
-                    modal.classList.toggle('active', show);
-                }
+                document.getElementById(modalId).classList.toggle('active', show);
             }
 
             // --- إعداد اللعبة ---
@@ -390,22 +405,12 @@
                 }
             }
 
-            function selectTopic(topicEl) {
-                playSound('click');
-                elements.topicSelectionDiv.querySelectorAll('.topic-card').forEach(c => c.classList.remove('selected'));
-                topicEl.classList.add('selected');
-                gameState.selectedTopic = topicEl.dataset.topic;
-                validateSetup();
-            }
-
             function addPlayer() {
                 const playerName = elements.playerNameInput.value.trim();
                 if (playerName && !gameState.players.includes(playerName)) {
                     playSound('click');
                     gameState.players.push(playerName);
-                    if (gameState.scores[playerName] === undefined) {
-                        gameState.scores[playerName] = 0;
-                    }
+                    if (gameState.scores[playerName] === undefined) gameState.scores[playerName] = 0;
                     updatePlayerList();
                     elements.playerNameInput.value = '';
                     elements.playerNameInput.focus();
@@ -416,6 +421,7 @@
             function removePlayer(playerName) {
                 playSound('click');
                 gameState.players = gameState.players.filter(p => p !== playerName);
+                delete gameState.scores[playerName];
                 updatePlayerList();
                 validateSetup();
             }
@@ -429,7 +435,7 @@
                     elements.playerList.appendChild(li);
                 });
             }
-
+            
             function validateSetup() {
                 elements.startGameBtn.disabled = !(gameState.players.length >= 3 && gameState.selectedTopic);
             }
@@ -442,206 +448,184 @@
                 gameState.outsider = gameState.players[outsiderIndex];
                 gameState.votes = {};
                 gameState.currentPlayerIndex = 0;
-                gameState.gamePhase = 'reveal';
-                renderGameScreen();
+                renderScreen('game-screen-content', 'reveal');
                 showScreen('game-screen');
             }
+
+            // --- منطق اللعبة والتصويت ---
+            function renderScreen(containerId, phase, data = {}) {
+                const container = document.getElementById(containerId);
+                let html = '';
+                switch(phase) {
+                    case 'reveal':
+                        const player = gameState.players[gameState.currentPlayerIndex];
+                        html = `<h2>مرّر الجهاز إلى</h2><h1 style="font-size: 3rem;">${player}</h1><p>عندما تكون جاهزاً، اضغط لكشف دورك.</p><button class="button" data-action="show-role">أنا ${player}، اكشف عن دوري</button>`;
+                        break;
+                    case 'show-role':
+                        const isOutsider = gameState.players[gameState.currentPlayerIndex] === gameState.outsider;
+                        const roleHTML = isOutsider ?
+                            `<h1>أنت برا السالفة! 🎭</h1><h3>مهمتك: لا تكشف نفسك وحاول معرفة الكلمة السرية.</h3><h4>الموضوع العام هو: ${gameState.selectedTopic}</h4>` :
+                            `<h3>الموضوع: ${gameState.selectedTopic}</h3><h1>الكلمة السرية:</h1><div class="word-display">${gameState.secretWord}</div>`;
+                        html = `${roleHTML}<br><button class="button" data-action="hide-role">فهمت! (إخفاء الشاشة)</button>`;
+                        break;
+                    case 'questions':
+                        let turn = gameState.currentPlayerIndex;
+                        const asker = gameState.players[turn % gameState.players.length];
+                        const responder = gameState.players[(turn + 1) % gameState.players.length];
+                        html = `<h2>الجولة ${turn + 1}</h2><h3>حان دور <span style="color:white;">${asker}</span></h3><p>اسأل سؤالاً لـ <span style="color:white;">${responder}</span></p><button class="button" data-action="next-turn">تم السؤال، ننتقل للسؤال التالي</button>`;
+                        break;
+                    case 'voting':
+                        const voter = gameState.players[gameState.currentPlayerIndex];
+                        const optionsHTML = gameState.players
+                            .filter(p => p !== voter)
+                            .map(p => `<button class="button secondary" data-action="cast-vote" data-vote-for="${p}">${p}</button>`)
+                            .join('');
+                        html = `<h2>حان وقت التصويت!</h2><h3><span style="color:white;">${voter}</span>، من برأيك هو "برا السالفة"؟</h3><div class="button-group">${optionsHTML}</div>`;
+                        break;
+                    case 'pass-device':
+                        html = `<h2>تم تسجيل صوتك بسرية.</h2><p>مرّر الجهاز للاعب التالي.</p><button class="button" data-action="next-voter">التالي</button>`;
+                        break;
+                }
+                container.innerHTML = html;
+            }
             
-            function restartGame() {
-                playSound('click');
-                gameState.selectedTopic = null;
-                // لا نعيد تصفير النقاط أو اللاعبين لجولة جديدة
-                populateTopics();
-                validateSetup();
-                showScreen('setup-screen');
-            }
-            
-            // --- وظائف عرض مراحل اللعبة ---
-            function renderGameScreen() {
-                const phase = gameState.gamePhase;
-                if (phase === 'reveal') renderRevealPhase();
-                else if (phase === 'questions') renderQuestionPhase();
-                else if (phase === 'voting') renderVotingPhase();
-                else if (phase === 'bonus') renderBonusRoundPhase();
-            }
-
-            function renderRevealPhase() {
-                const player = gameState.players[gameState.currentPlayerIndex];
-                elements.gameScreenContent.innerHTML = `<h2>مرّر الجهاز إلى</h2><h1 style="font-size: 3rem;">${player}</h1><p>عندما تكون جاهزاً، اضغط لكشف دورك.</p><button class="button" data-action="show-role">أنا ${player}، اكشف عن دوري</button>`;
-            }
-            
-            function showPlayerRole() {
-                playSound('reveal');
-                const player = gameState.players[gameState.currentPlayerIndex];
-                let roleHTML = (player === gameState.outsider) ?
-                    `<h1>أنت برا السالفة! 🎭</h1><h3>مهمتك: لا تكشف نفسك وحاول معرفة الكلمة السرية.</h3><h4>الموضوع العام هو: ${gameState.selectedTopic}</h4>` :
-                    `<h3>الموضوع: ${gameState.selectedTopic}</h3><h1>الكلمة السرية:</h1><div class="word-display">${gameState.secretWord}</div>`;
-                elements.gameScreenContent.innerHTML = `${roleHTML}<br><button class="button" data-action="hide-role">فهمت! (إخفاء الشاشة)</button>`;
-            }
-
-            function hidePlayerRole() {
-                gameState.currentPlayerIndex++;
-                if (gameState.currentPlayerIndex < gameState.players.length) {
-                    renderRevealPhase();
-                } else {
-                    gameState.gamePhase = 'questions';
-                    gameState.turn = 0;
-                    renderGameScreen();
-                }
-            }
-
-            function renderQuestionPhase() {
-                const asker = gameState.players[gameState.turn % gameState.players.length];
-                const responder = gameState.players[(gameState.turn + 1) % gameState.players.length];
-                elements.gameScreenContent.innerHTML = `<h2>الجولة ${Math.floor(gameState.turn / gameState.players.length) + 1}</h2><h3>حان دور <span style="color:white;">${asker}</span></h3><p>اسأل سؤالاً لـ <span style="color:white;">${responder}</span></p><button class="button" data-action="next-turn">تم السؤال، ننتقل للتالي</button>`;
-            }
-
-            function nextTurn() {
-                playSound('click');
-                gameState.turn++;
-                // نكتفي بجولة أسئلة واحدة (كل لاعب يسأل مرة)
-                if (gameState.turn >= gameState.players.length) {
-                    gameState.gamePhase = 'voting';
-                    gameState.currentPlayerIndex = 0;
-                    renderGameScreen();
-                } else {
-                    renderQuestionPhase();
-                }
-            }
-
-            function renderVotingPhase() {
-                const voter = gameState.players[gameState.currentPlayerIndex];
-                let optionsHTML = gameState.players
-                    .filter(p => p !== voter)
-                    .map(p => `<button class="button secondary" data-action="cast-vote" data-vote-for="${p}">${p}</button>`)
-                    .join('');
-                elements.gameScreenContent.innerHTML = `<h2>حان وقت التصويت!</h2><h3><span style="color:white;">${voter}</span>، من برأيك هو "برا السالفة"؟</h3><div class="button-group">${optionsHTML}</div>`;
-            }
-
-            function castVote(votedFor) {
-                playSound('click');
-                const voter = gameState.players[gameState.currentPlayerIndex];
-                gameState.votes[voter] = votedFor;
-                gameState.currentPlayerIndex++;
-                if (gameState.currentPlayerIndex < gameState.players.length) {
-                    elements.gameScreenContent.innerHTML = `<h2>تم تسجيل صوتك بسرية.</h2><p>مرّر الجهاز للاعب التالي.</p><button class="button" data-action="next-voter">التالي</button>`;
-                } else {
-                    calculateResults();
-                }
-            }
-
-            function calculateResults() {
-                const voteCounts = {};
-                gameState.players.forEach(p => voteCounts[p] = 0);
-
-                let correctVoters = [];
-                for (const voter in gameState.votes) {
-                    const votedFor = gameState.votes[voter];
-                    if (votedFor) voteCounts[votedFor]++;
-                    if (votedFor === gameState.outsider) {
-                        correctVoters.push(voter);
-                    }
-                }
+            function handleAction(e) {
+                const target = e.target.closest('[data-action]');
+                if (!target) return;
                 
-                correctVoters.forEach(p => gameState.scores[p]++);
+                const action = target.dataset.action;
+                // Play click for most actions, but not for reveal
+                if (action !== 'show-role') playSound('click');
+                
+                switch(action) {
+                    case 'show-screen': showScreen(target.dataset.screen); break;
+                    case 'show-how-to-play': showModal('how-to-play-modal', true); break;
+                    case 'show-role': playSound('reveal'); renderScreen('game-screen-content', 'show-role'); break;
+                    case 'hide-role':
+                        gameState.currentPlayerIndex++;
+                        if (gameState.currentPlayerIndex < gameState.players.length) {
+                           renderScreen('game-screen-content', 'reveal');
+                        } else {
+                           gameState.currentPlayerIndex = 0; // Reset for question phase
+                           renderScreen('game-screen-content', 'questions');
+                        }
+                        break;
+                    case 'next-turn':
+                        gameState.currentPlayerIndex++;
+                        if (gameState.currentPlayerIndex < gameState.players.length) {
+                            renderScreen('game-screen-content', 'questions');
+                        } else {
+                           gameState.currentPlayerIndex = 0; // Reset for voting phase
+                           renderScreen('game-screen-content', 'voting');
+                        }
+                        break;
+                    case 'cast-vote':
+                        const voter = gameState.players[gameState.currentPlayerIndex];
+                        gameState.votes[voter] = target.dataset.voteFor;
+                        gameState.currentPlayerIndex++;
+                        if (gameState.currentPlayerIndex < gameState.players.length) {
+                            renderScreen('game-screen-content', 'pass-device');
+                        } else {
+                            processVotesAndReveal();
+                        }
+                        break;
+                    case 'next-voter':
+                        renderScreen('game-screen-content', 'voting');
+                        break;
+                    case 'check-outsider-guess':
+                        checkOutsiderGuess(target.dataset.word);
+                        break;
+                }
+            }
+            
+            function processVotesAndReveal() {
+                // 1. Calculate votes and assign initial points
+                const voteCounts = gameState.players.reduce((acc, p) => ({ ...acc, [p]: 0 }), {});
+                Object.values(gameState.votes).forEach(votedFor => {
+                    if (voteCounts[votedFor] !== undefined) voteCounts[votedFor]++;
+                });
 
-                let maxVotes = 0, accusedPlayers = [];
+                let maxVotes = 0;
+                gameState.accusedPlayer = null;
                 for (const player in voteCounts) {
                     if (voteCounts[player] > maxVotes) {
                         maxVotes = voteCounts[player];
-                        accusedPlayers = [player];
-                    } else if (voteCounts[player] === maxVotes) {
-                        accusedPlayers.push(player);
+                        gameState.accusedPlayer = player;
                     }
                 }
-
-                // إذا كان هناك تعادل، نختار واحداً عشوائياً منهم ليكون المتهم الرئيسي
-                const accusedPlayer = accusedPlayers[Math.floor(Math.random() * accusedPlayers.length)];
                 
-                startRevealRoulette(accusedPlayer);
-            }
+                const groupGuessedCorrectly = gameState.accusedPlayer === gameState.outsider;
 
-            // --- ⭐ وظيفة الروليت الجديدة ---
-            function startRevealRoulette(accusedPlayer) {
+                if (groupGuessedCorrectly) {
+                    playSound('success');
+                    gameState.players.forEach(p => {
+                        if (gameState.votes[p] === gameState.outsider) {
+                            gameState.scores[p] += 2; // +2 points for correct guess
+                        }
+                    });
+                } else {
+                    playSound('fail');
+                    gameState.scores[gameState.outsider] += 3; // +3 points for fooling them
+                }
+
+                // 2. Start the roulette to reveal the TRUE outsider
+                startRevealRoulette(groupGuessedCorrectly);
+            }
+            
+            function startRevealRoulette(groupGuessedCorrectly) {
                 showModal('roulette-modal', true);
+                elements.revealResultMessage.innerHTML = ''; // Clear previous message
                 playSound('roulette');
                 
-                let delay = 75;
-                let duration = 3000; // 3 ثواني
-                let startTime = Date.now();
+                const duration = 3500; // 3.5 seconds
+                const startTime = Date.now();
                 
                 const intervalId = setInterval(() => {
-                    // اختيار اسم عشوائي للعرض السريع
                     const randomPlayer = gameState.players[Math.floor(Math.random() * gameState.players.length)];
                     elements.rouletteDisplay.textContent = randomPlayer;
 
-                    // إيقاف الروليت بعد انتهاء المدة
                     if (Date.now() - startTime > duration) {
                         clearInterval(intervalId);
                         stopSound('roulette');
-                        elements.rouletteDisplay.textContent = accusedPlayer; // عرض المتهم الحقيقي
+                        elements.rouletteDisplay.textContent = gameState.outsider; // Reveal the true outsider
+                        
+                        let message = '';
+                        if (groupGuessedCorrectly) {
+                            message = `<p><strong class="final-winner">لقد كشفتموه!</strong></p><p>اللاعبون نجحوا في كشف أن <strong class="final-loser">${gameState.outsider}</strong> هو برا السالفة.</p>`;
+                        } else {
+                            message = `<p><strong class="final-loser">لقد خدعكم!</strong></p><p>اللاعبون اتهموا <strong style="color: white;">${gameState.accusedPlayer || 'لا أحد'}</strong>، لكن <strong class="final-winner">${gameState.outsider}</strong> هو من كان برا السالفة!</p>`;
+                        }
+                        elements.revealResultMessage.innerHTML = message;
                         
                         setTimeout(() => {
                            showModal('roulette-modal', false);
-                           handleAccusationResult(accusedPlayer);
-                        }, 2000); // انتظر ثانيتين بعد الكشف
+                           renderOutsiderGuessPhase();
+                        }, 4000); // Wait 4 seconds to read the result
                     }
-                }, delay);
+                }, 80);
             }
 
-            function handleAccusationResult(accusedPlayer) {
-                if (accusedPlayer === gameState.outsider) {
-                    playSound('fail'); // صوت فشل لأنه تم كشفه
-                    gameState.gamePhase = 'bonus';
-                    renderGameScreen();
-                } else {
-                    playSound('success'); // صوت نجاح لأنه خدعهم
-                    gameState.scores[gameState.outsider] += 2;
-                    showFinalScores(
-                        'لقد خدعهم!',
-                        `<p>اللاعب <strong class="final-winner">${gameState.outsider}</strong> نجح في خداع الجميع وحصل على نقطتين!</p><p>تم اتهام ${accusedPlayer} بالخطأ. الكلمة الصحيحة كانت: <strong>${gameState.secretWord}</strong></p>`
-                    );
-                }
-            }
-            
-            function renderBonusRoundPhase() {
-                const options = getBonusOptions();
-                const optionsHTML = options.map(opt => `<button class="button secondary" data-action="check-bonus" data-answer="${opt}">${opt}</button>`).join('');
-
-                elements.gameScreenContent.innerHTML = `
-                    <h2>تم كشف <span class="final-loser">${gameState.outsider}</span>!</h2>
-                    <h3>تحدي أخير له:</h3>
-                    <p>هل يمكنك تخمين الكلمة السرية لكسب نقطة شرف؟</p>
-                    <div class="button-group">${optionsHTML}</div>
-                `;
-            }
-
-            function getBonusOptions() {
-                const correctWord = gameState.secretWord;
-                const allWords = keywords[gameState.selectedTopic].words;
-                const distractors = allWords.filter(w => w !== correctWord);
+            function renderOutsiderGuessPhase() {
+                showScreen('outsider-guess-screen');
+                elements.outsiderGuessTitle.innerHTML = `يا <span class="final-loser">${gameState.outsider}</span>، هذا تحديك!`;
                 
-                for (let i = distractors.length - 1; i > 0; i--) {
-                    const j = Math.floor(Math.random() * (i + 1));
-                    [distractors[i], distractors[j]] = [distractors[j], distractors[i]];
-                }
-                
-                const finalOptions = distractors.slice(0, 3);
-                finalOptions.push(correctWord);
-                return finalOptions.sort(() => Math.random() - 0.5);
+                const words = keywords[gameState.selectedTopic].words;
+                elements.outsiderGuessWords.innerHTML = words.map(word => 
+                    `<button class="button secondary word-choice-btn" data-action="check-outsider-guess" data-word="${word}">${word}</button>`
+                ).join('');
             }
 
-            function checkBonusAnswer(answer) {
+            function checkOutsiderGuess(guessedWord) {
                 let title, details;
-                if (answer === gameState.secretWord) {
+                if (guessedWord === gameState.secretWord) {
                     playSound('success');
-                    gameState.scores[gameState.outsider]++;
                     title = 'تخمين صحيح!';
-                    details = `<p>نجح <strong class="final-winner">${gameState.outsider}</strong> في معرفة الكلمة وكسب نقطة شرف.</p>`;
+                    details = `<p><strong class="final-winner">${gameState.outsider}</strong> نجح في تخمين الكلمة السرية ونجا بنقاطه!</p>`;
                 } else {
                     playSound('fail');
+                    gameState.scores[gameState.outsider]--; // Deduct 1 point
                     title = 'تخمين خاطئ!';
-                    details = `<p>للأسف، الكلمة الصحيحة كانت: <strong>${gameState.secretWord}</strong></p>`;
+                    details = `<p>للأسف يا <strong class="final-loser">${gameState.outsider}</strong>، لقد خسرت نقطة. الكلمة الصحيحة كانت: <strong>${gameState.secretWord}</strong></p>`;
                 }
                 showFinalScores(title, details);
             }
@@ -652,59 +636,48 @@
                 elements.resultsDetails.innerHTML = details;
                 
                 elements.finalScores.innerHTML = '<h3>النقاط الإجمالية:</h3>';
-                Object.keys(gameState.scores)
-                    .sort((a, b) => gameState.scores[b] - gameState.scores[a])
-                    .forEach(player => {
-                        const li = document.createElement('li');
-                        li.innerText = `${player}: ${gameState.scores[player]} نقطة`;
-                        elements.finalScores.appendChild(li);
+                const sortedPlayers = Object.keys(gameState.scores).sort((a, b) => gameState.scores[b] - gameState.scores[a]);
+                
+                sortedPlayers.forEach(player => {
+                    const li = document.createElement('li');
+                    li.innerText = `${player}: ${gameState.scores[player]} نقطة`;
+                    if (player === sortedPlayers[0]) li.classList.add('final-winner');
+                    elements.finalScores.appendChild(li);
                 });
             }
+            
+            function restartGame() {
+                gameState.selectedTopic = null;
+                populateTopics();
+                validateSetup();
+                showScreen('setup-screen');
+            }
 
-            // --- إدارة الأحداث (Event Listeners) ---
-            document.body.addEventListener('click', (e) => {
-                const action = e.target.dataset.action;
-                if (!action) return;
-                
-                playSound('click');
-
-                switch(action) {
-                    case 'show-screen': showScreen(e.target.dataset.screen); break;
-                    case 'show-how-to-play': showModal('how-to-play-modal', true); break;
-                    case 'show-role': showPlayerRole(); break;
-                    case 'hide-role': hidePlayerRole(); break;
-                    case 'next-turn': nextTurn(); break;
-                    case 'next-voter': renderVotingPhase(); break;
-                    case 'cast-vote': castVote(e.target.dataset.voteFor); break;
-                    case 'check-bonus': checkBonusAnswer(e.target.dataset.answer); break;
-                }
-            });
-
+            // --- Event Listeners Setup ---
+            document.body.addEventListener('click', handleAction);
             elements.addPlayerBtn.addEventListener('click', addPlayer);
-            elements.playerNameInput.addEventListener('keypress', (e) => {
-                if(e.key === 'Enter') addPlayer();
-            });
-
+            elements.playerNameInput.addEventListener('keypress', (e) => { if(e.key === 'Enter') addPlayer(); });
             elements.startGameBtn.addEventListener('click', startGame);
-            document.getElementById('restart-game-btn').addEventListener('click', restartGame);
-            document.getElementById('close-how-to-play-btn').addEventListener('click', () => {
-                playSound('click');
-                showModal('how-to-play-modal', false);
-            });
-
-            // Event Delegation for dynamic elements
+            elements.restartGameBtn.addEventListener('click', restartGame);
+            document.getElementById('close-how-to-play-btn').addEventListener('click', () => { playSound('click'); showModal('how-to-play-modal', false); });
             elements.topicSelectionDiv.addEventListener('click', (e) => {
                 const card = e.target.closest('.topic-card');
-                if (card) selectTopic(card);
+                if (card) { playSound('click'); selectTopic(card); }
             });
-
             elements.playerList.addEventListener('click', (e) => {
                 if (e.target.classList.contains('remove-player')) {
                     removePlayer(e.target.dataset.player);
                 }
             });
 
-            // --- بدء تشغيل الواجهة ---
+            function selectTopic(topicEl) {
+                elements.topicSelectionDiv.querySelectorAll('.topic-card').forEach(c => c.classList.remove('selected'));
+                topicEl.classList.add('selected');
+                gameState.selectedTopic = topicEl.dataset.topic;
+                validateSetup();
+            }
+
+            // --- Initial Load ---
             populateTopics();
             showScreen('home-screen');
         });
