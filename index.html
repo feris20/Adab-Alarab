@@ -3,204 +3,410 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>عيد ميلاد سعيد يا صديقتي!</title>
+    <title>مفاجأة خاصة لكِ...</title>
+    <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;700&display=swap" rel="stylesheet">
     <style>
-        @import url('https://fonts.googleapis.com/css2?family=Cairo:wght@400;700&display=swap');
+        :root {
+            --primary-color: #eab308; /* Gold */
+            --secondary-color: #581c87; /* Deep Purple */
+            --dark-color: #1e1b4b; /* Dark Indigo */
+            --light-color: #f8fafc; /* White Slate */
+        }
 
         body {
-            font-family: 'Cairo', sans-serif;
-            text-align: center;
-            background-color: #1a0226;
-            color: #fff;
-            overflow: hidden;
+            font-family: 'Tajawal', sans-serif;
             margin: 0;
             padding: 0;
+            background: linear-gradient(135deg, var(--dark-color) 0%, #312e81 100%);
+            color: var(--light-color);
             display: flex;
             justify-content: center;
             align-items: center;
             height: 100vh;
-            transition: background-color 1s ease;
+            overflow: hidden;
+            perspective: 1000px;
         }
 
-        #game-container {
-            position: relative;
-            width: 100%;
-            height: 100%;
-        }
-
-        #instructions {
-            font-size: 1.8em;
-            margin-bottom: 20px;
-            text-shadow: 2px 2px 4px rgba(0,0,0,0.5);
-        }
-        
-        #message-display {
-            font-size: 2em;
-            font-weight: bold;
-            color: #ffd700;
-            height: 60px;
-            transition: all 0.5s ease;
-        }
-
-        .star {
-            position: absolute;
-            font-size: 30px;
-            color: #fff;
-            cursor: pointer;
-            transition: transform 0.3s ease, opacity 0.3s ease;
-            text-shadow: 0 0 10px #fff, 0 0 20px #fff, 0 0 30px #ffd700;
-            animation: twinkle 1.5s infinite alternate;
-        }
-
-        .star:hover {
-            transform: scale(1.5);
-        }
-
-        @keyframes twinkle {
-            from {
-                opacity: 0.7;
-            }
-            to {
-                opacity: 1;
-            }
-        }
-
-        #surprise {
+        .screen {
             display: none;
             flex-direction: column;
-            justify-content: center;
             align-items: center;
-            animation: fadeIn 2s;
+            justify-content: center;
+            width: 100%;
+            height: 100%;
+            animation: fadeIn 1s ease-in-out;
+            text-align: center;
+            padding: 20px;
+            box-sizing: border-box;
+        }
+
+        .screen.active {
+            display: flex;
         }
 
         @keyframes fadeIn {
-            from { opacity: 0; }
-            to { opacity: 1; }
+            from { opacity: 0; transform: scale(0.95); }
+            to { opacity: 1; transform: scale(1); }
         }
 
-        #birthday-card {
-            background: #fff;
-            color: #333;
+        /* Start Screen */
+        #start-screen h1 {
+            font-size: 3.5rem;
+            text-shadow: 0 0 15px var(--primary-color);
+        }
+        #start-screen p {
+            font-size: 1.5rem;
+            max-width: 600px;
+        }
+        .cta-button {
+            background-color: var(--primary-color);
+            color: var(--dark-color);
+            border: none;
+            padding: 15px 35px;
+            font-size: 1.2rem;
+            font-weight: 700;
+            border-radius: 50px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 5px 20px rgba(234, 179, 8, 0.4);
+            margin-top: 30px;
+        }
+        .cta-button:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 30px rgba(234, 179, 8, 0.6);
+        }
+
+        /* Quiz Screen */
+        #quiz-container {
+            background: rgba(0, 0, 0, 0.2);
             padding: 40px;
             border-radius: 20px;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+            backdrop-filter: blur(10px);
+            width: 90%;
             max-width: 500px;
         }
-
-        #birthday-card h1 {
-            color: #d13e8a;
-            font-size: 3em;
-            margin-bottom: 10px;
+        #question {
+            font-size: 1.8rem;
+            margin-bottom: 20px;
+        }
+        #answer-input {
+            width: 100%;
+            padding: 15px;
+            border-radius: 10px;
+            border: 2px solid var(--primary-color);
+            background: transparent;
+            color: var(--light-color);
+            font-size: 1.2rem;
+            text-align: center;
+            margin-bottom: 20px;
+        }
+        #key-progress {
+            font-size: 2.5rem;
+            color: var(--primary-color);
+            letter-spacing: 10px;
+            margin-top: 20px;
+            height: 40px;
+        }
+        #error-message {
+            color: #ef4444;
+            height: 20px;
+            font-weight: bold;
         }
 
-        #birthday-card p {
-            font-size: 1.4em;
-            line-height: 1.6;
+        /* Chest Screen */
+        #chest-container {
+            position: relative;
+            cursor: pointer;
+        }
+        #chest-base {
+            width: 300px;
+        }
+        #chest-lid {
+            width: 300px;
+            position: absolute;
+            top: 0;
+            left: 0;
+            transform-origin: top;
+            transition: transform 1.5s cubic-bezier(0.68, -0.55, 0.27, 1.55);
+        }
+        #chest-container.open #chest-lid {
+            transform: rotateX(-120deg);
+        }
+        #unlock-message {
+            font-size: 1.5rem;
+            position: absolute;
+            bottom: -80px;
+            width: 100%;
+            text-align: center;
+            text-shadow: 0 0 10px #000;
+        }
+
+        /* Inside Chest Screen */
+        #inside-chest-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+            gap: 25px;
+            padding: 20px;
+            max-width: 700px;
+            background: rgba(0, 0, 0, 0.3);
+            border-radius: 15px;
+        }
+        .memory-item {
+            width: 120px;
+            height: 120px;
+            border-radius: 10px;
+            background-size: cover;
+            background-position: center;
+            border: 3px solid var(--primary-color);
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.5);
+        }
+        .memory-item:hover {
+            transform: scale(1.1) rotate(3deg);
+            box-shadow: 0 8px 25px rgba(234, 179, 8, 0.5);
+        }
+
+        /* Memory Popup */
+        #memory-popup {
+            position: fixed;
+            top: 0; left: 0;
+            width: 100%; height: 100%;
+            background: rgba(0,0,0,0.7);
+            backdrop-filter: blur(5px);
+            display: none;
+            align-items: center;
+            justify-content: center;
+            z-index: 100;
+        }
+        #memory-popup-content {
+            background: var(--light-color);
+            color: var(--dark-color);
+            padding: 30px;
+            border-radius: 15px;
+            max-width: 400px;
+            text-align: center;
+        }
+        #memory-popup-content p {
+            font-size: 1.3rem;
+        }
+
+        /* Final Surprise */
+        #final-surprise {
+            text-align: center;
+        }
+        #final-surprise h1 {
+            font-size: 4.5rem;
+            color: var(--primary-color);
+            animation: pulse 1.5s infinite;
+        }
+        @keyframes pulse {
+            0% { transform: scale(1); text-shadow: 0 0 15px var(--primary-color); }
+            50% { transform: scale(1.05); text-shadow: 0 0 25px var(--primary-color); }
+            100% { transform: scale(1); text-shadow: 0 0 15px var(--primary-color); }
+        }
+        #final-surprise p {
+            font-size: 1.6rem;
+            max-width: 600px;
+            line-height: 1.8;
         }
         
-        /* Confetti styles */
+        /* Confetti */
         .confetti {
-            position: absolute;
-            width: 10px;
-            height: 20px;
+            position: fixed;
+            width: 15px;
+            height: 15px;
             background-color: #f00;
-            opacity: 0.7;
+            opacity: 0.9;
             animation: fall 5s linear infinite;
         }
-        
         @keyframes fall {
-          to {
-            transform: translateY(100vh) rotate(360deg);
-            opacity: 0;
-          }
+          to { transform: translateY(100vh) rotate(720deg); opacity: 0; }
         }
 
     </style>
 </head>
 <body>
 
-    <div id="game-container">
-        <h1 id="instructions">لعبة عيد الميلاد: ابحثي عن النجوم الخمسة المضيئة!</h1>
-        <div id="message-display"></div>
+    <div id="start-screen" class="screen active">
+        <h1>صندوق سحري في انتظارك</h1>
+        <p>هذا الصندوق يحمل في طياته ذكريات خاصة جدًا. هل تملكين الشجاعة لفتحه واكتشاف ما بداخله؟</p>
+        <button class="cta-button" onclick="showScreen('quiz-screen')">ابدئي المغامرة</button>
     </div>
 
-    <div id="surprise">
-        <div id="birthday-card">
-            <h1>عيد ميلاد سعيد!</h1>
-            <p>
-                إلى صديقتي الغالية، كل عام وأنتِ بألف خير. أتمنى لكِ عامًا مليئًا بالسعادة والنجاح وكل الأشياء الجميلة التي تشبهك. أحبكِ جدًا!
-            </p>
+    <div id="quiz-screen" class="screen">
+        <div id="quiz-container">
+            <h2 id="question"></h2>
+            <p id="error-message"></p>
+            <input type="text" id="answer-input" placeholder="اكتبي إجابتك هنا...">
+            <button class="cta-button" onclick="checkAnswer()">تأكيد الإجابة</button>
+            <div id="key-progress"></div>
+        </div>
+    </div>
+    
+    <div id="chest-screen" class="screen">
+        <div id="chest-container" onclick="openChest()">
+            <img id="chest-base" src="https://i.ibb.co/k3d2JkM/chest-base.png" alt="Chest Base">
+            <img id="chest-lid" src="https://i.ibb.co/3kGMZtP/chest-lid.png" alt="Chest Lid">
+            <p id="unlock-message">لقد حصلتِ على المفتاح! اضغطي على الصندوق لفتحه</p>
         </div>
     </div>
 
-    <script>
-        const gameContainer = document.getElementById('game-container');
-        const instructions = document.getElementById('instructions');
-        const messageDisplay = document.getElementById('message-display');
-        const surprise = document.getElementById('surprise');
-        const totalStars = 5;
-        let starsFound = 0;
-        
-        // ** غير الكلمات هنا لتناسب رسالتك **
-        const messageWords = ["كل", "عام", "وأنتِ", "بألف", "خير!"];
+    <div id="inside-chest-screen" class="screen">
+        <h2>ذكرياتنا الثمينة...</h2>
+        <p>اضغطي على كل عنصر لتكشفي عن ذكرى جميلة.</p>
+        <div id="inside-chest-grid">
+            </div>
+    </div>
+    
+    <div id="memory-popup" onclick="this.style.display='none'">
+        <div id="memory-popup-content">
+            <h3 id="memory-popup-title"></h3>
+            <p id="memory-popup-text"></p>
+            <button class="cta-button" style="background-color: var(--secondary-color); color: white; margin-top:10px;">إغلاق</button>
+        </div>
+    </div>
 
-        function createStar() {
-            for (let i = 0; i < totalStars; i++) {
-                const star = document.createElement('div');
-                star.innerHTML = '✦'; // Star character
-                star.classList.add('star');
-                star.style.top = `${Math.random() * 85}%`;
-                star.style.left = `${Math.random() * 95}%`;
-                
-                star.addEventListener('click', () => {
-                    if (!star.classList.contains('found')) {
-                        star.classList.add('found');
-                        star.style.opacity = '0';
-                        star.style.transform = 'scale(2)';
-                        starsFound++;
-                        
-                        // Display part of the message
-                        let currentMessage = messageDisplay.innerText;
-                        messageDisplay.innerText = currentMessage + " " + messageWords[starsFound - 1];
+    <div id="final-surprise" class="screen">
+        <h1>عيد ميلاد سعيد يا أغلى صديقة!</h1>
+        <p>
+            كل عام وأنتِ النور الذي يضيء أيامي. كل عام وأنتِ أقرب إلى قلبي. أتمنى لكِ عامًا مليئًا بالضحكات التي لا تنتهي، والأحلام التي تتحقق، والسعادة التي تستحقينها وأكثر. أحبكِ إلى ما لا نهاية!
+        </p>
+    </div>
 
-                        if (starsFound === totalStars) {
-                            endGame();
-                        }
-                    }
-                }, { once: true }); // The event listener will be removed after being invoked once
+<script>
+    // ======== الإعدادات القابلة للتخصيص ========
 
-                gameContainer.appendChild(star);
-            }
+    // ** 1. غيري الأسئلة والإجابات هنا **
+    // يجب أن تكون الإجابات بسيطة وبكلمة واحدة ليسهل إدخالها.
+    const quizData = [
+        { question: "أين كانت أول مرة التقينا فيها؟", answer: "الجامعة" },
+        { question: "ما هو لوننا المفضل المشترك؟", answer: "ازرق" },
+        { question: "ما اسم فيلمنا المفضل الذي شاهدناه معًا؟", answer: "تيتانيك" }
+    ];
+
+    // ** 2. غيري الذكريات هنا **
+    // استخدمي صورًا حقيقية عن طريق رفعها على موقع مثل imgbb.com وأخذ الرابط المباشر.
+    const memories = [
+        {
+            title: "يوم على الشاطئ",
+            text: "هل تتذكرين هذا اليوم؟ كانت الضحكات أعلى من صوت الأمواج! يوم لا يُنسى أبدًا.",
+            image: "https://picsum.photos/id/1015/200/200" // رابط صورتك
+        },
+        {
+            title: "تخرجنا!",
+            text: "اللحظة التي شعرنا فيها أننا نستطيع قهر العالم! فخورة بنا وبكل ما حققناه.",
+            image: "https://picsum.photos/id/1025/200/200" // رابط صورتك
+        },
+        {
+            title: "مغامرة القهوة",
+            text: "أفضل الأحاديث وأعمق الأسرار كانت دائمًا على فنجان قهوة. لكل كوب ذكرى.",
+            image: "https://picsum.photos/id/1060/200/200" // رابط صورتك
+        },
+        // ** العنصر الأخير هو بطاقة عيد الميلاد - لا تغيريه **
+        {
+            title: "رسالة خاصة لكِ",
+            text: "اضغطي هنا لتقرئي رسالتي لكِ...",
+            image: "https://i.ibb.co/zVv4w2s/gift-card.png",
+            isFinal: true
         }
+    ];
 
-        function endGame() {
-            // Fade out the game
-            gameContainer.style.transition = 'opacity 1s';
-            gameContainer.style.opacity = '0';
-            
-            // Wait for fade out, then show surprise
+    // ======== منطق اللعبة (لا داعي لتغيير هذا الجزء) ========
+
+    let currentQuestionIndex = 0;
+    let unlockedKeyParts = 0;
+    const keySymbols = ['🗝️', '🔑', '🔐'];
+
+    const screens = document.querySelectorAll('.screen');
+    const questionEl = document.getElementById('question');
+    const answerInput = document.getElementById('answer-input');
+    const keyProgressEl = document.getElementById('key-progress');
+    const errorMessageEl = document.getElementById('error-message');
+
+    function showScreen(screenId) {
+        screens.forEach(screen => screen.classList.remove('active'));
+        document.getElementById(screenId).classList.add('active');
+        if (screenId === 'quiz-screen') {
+            loadQuestion();
+        }
+    }
+
+    function loadQuestion() {
+        if (currentQuestionIndex < quizData.length) {
+            questionEl.textContent = quizData[currentQuestionIndex].question;
+            answerInput.value = '';
+            answerInput.focus();
+            errorMessageEl.textContent = '';
+        } else {
+            // Quiz finished, show chest
+            showScreen('chest-screen');
+        }
+    }
+
+    function checkAnswer() {
+        const userAnswer = answerInput.value.trim();
+        if (userAnswer.toLowerCase() === quizData[currentQuestionIndex].answer.toLowerCase()) {
+            currentQuestionIndex++;
+            unlockedKeyParts++;
+            keyProgressEl.textContent += '🔑';
+            loadQuestion();
+        } else {
+            errorMessageEl.textContent = "إجابة خاطئة، حاولي مرة أخرى!";
+            answerInput.style.animation = 'shake 0.5s';
+            setTimeout(() => answerInput.style.animation = '', 500);
+        }
+    }
+
+    function openChest() {
+        const chest = document.getElementById('chest-container');
+        if (!chest.classList.contains('open')) {
+            chest.classList.add('open');
+            document.getElementById('unlock-message').style.opacity = '0';
             setTimeout(() => {
-                gameContainer.style.display = 'none';
-                document.body.style.backgroundColor = '#fce4ec'; // A soft pink background
-                surprise.style.display = 'flex';
-                createConfetti();
-            }, 1000);
+                showScreen('inside-chest-screen');
+                populateMemories();
+            }, 1500); // Wait for animation
         }
+    }
 
-        function createConfetti() {
-            const confettiContainer = document.body;
-            for (let i = 0; i < 100; i++) {
-                const confetti = document.createElement('div');
-                confetti.classList.add('confetti');
-                confetti.style.left = `${Math.random() * 100}vw`;
-                confetti.style.backgroundColor = `hsl(${Math.random() * 360}, 100%, 50%)`;
-                confetti.style.animationDelay = `${Math.random() * 2}s`;
-                confettiContainer.appendChild(confetti);
-            }
+
+    function populateMemories() {
+        const grid = document.getElementById('inside-chest-grid');
+        memories.forEach(memory => {
+            const item = document.createElement('div');
+            item.classList.add('memory-item');
+            item.style.backgroundImage = `url(${memory.image})`;
+            item.onclick = () => showMemoryPopup(memory);
+            grid.appendChild(item);
+        });
+    }
+
+    function showMemoryPopup(memory) {
+        if (memory.isFinal) {
+            showScreen('final-surprise');
+            launchConfetti();
+        } else {
+            document.getElementById('memory-popup-title').textContent = memory.title;
+            document.getElementById('memory-popup-text').textContent = memory.text;
+            document.getElementById('memory-popup').style.display = 'flex';
         }
+    }
+    
+    function launchConfetti() {
+        for (let i = 0; i < 150; i++) {
+            const confetti = document.createElement('div');
+            confetti.classList.add('confetti');
+            confetti.style.left = `${Math.random() * 100}vw`;
+            confetti.style.top = `${Math.random() * -50}vh`;
+            confetti.style.backgroundColor = `hsl(${Math.random() * 360}, 100%, 70%)`;
+            confetti.style.animationDelay = `${Math.random() * 3}s`;
+            confetti.style.transform = `rotate(${Math.random() * 360}deg)`
+            document.body.appendChild(confetti);
+        }
+    }
 
-        createStar();
-    </script>
+</script>
 
 </body>
 </html>
