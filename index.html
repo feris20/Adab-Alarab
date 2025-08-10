@@ -3,35 +3,204 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>مفاجأة عيد ميلاد!</title>
-    <link rel="stylesheet" href="style.css">
-    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;700&display=swap" rel="stylesheet">
+    <title>عيد ميلاد سعيد يا صديقتي!</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Cairo:wght@400;700&display=swap');
+
+        body {
+            font-family: 'Cairo', sans-serif;
+            text-align: center;
+            background-color: #1a0226;
+            color: #fff;
+            overflow: hidden;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            transition: background-color 1s ease;
+        }
+
+        #game-container {
+            position: relative;
+            width: 100%;
+            height: 100%;
+        }
+
+        #instructions {
+            font-size: 1.8em;
+            margin-bottom: 20px;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.5);
+        }
+        
+        #message-display {
+            font-size: 2em;
+            font-weight: bold;
+            color: #ffd700;
+            height: 60px;
+            transition: all 0.5s ease;
+        }
+
+        .star {
+            position: absolute;
+            font-size: 30px;
+            color: #fff;
+            cursor: pointer;
+            transition: transform 0.3s ease, opacity 0.3s ease;
+            text-shadow: 0 0 10px #fff, 0 0 20px #fff, 0 0 30px #ffd700;
+            animation: twinkle 1.5s infinite alternate;
+        }
+
+        .star:hover {
+            transform: scale(1.5);
+        }
+
+        @keyframes twinkle {
+            from {
+                opacity: 0.7;
+            }
+            to {
+                opacity: 1;
+            }
+        }
+
+        #surprise {
+            display: none;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            animation: fadeIn 2s;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        #birthday-card {
+            background: #fff;
+            color: #333;
+            padding: 40px;
+            border-radius: 20px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+            max-width: 500px;
+        }
+
+        #birthday-card h1 {
+            color: #d13e8a;
+            font-size: 3em;
+            margin-bottom: 10px;
+        }
+
+        #birthday-card p {
+            font-size: 1.4em;
+            line-height: 1.6;
+        }
+        
+        /* Confetti styles */
+        .confetti {
+            position: absolute;
+            width: 10px;
+            height: 20px;
+            background-color: #f00;
+            opacity: 0.7;
+            animation: fall 5s linear infinite;
+        }
+        
+        @keyframes fall {
+          to {
+            transform: translateY(100vh) rotate(360deg);
+            opacity: 0;
+          }
+        }
+
+    </style>
 </head>
 <body>
 
     <div id="game-container">
-        <div id="instructions">
-            <h1>البحث عن شموع الكعكة</h1>
-            <p>الغرفة مظلمة والكعكة تنتظر شموعها. ابحثي في أنحاء الغرفة لتجديها كلها!</p>
-        </div>
-        <div id="candle-counter">الشموع التي تم إيجادها: <span id="found-count">0</span> / <span id="total-count">?</span></div>
-        <div id="room">
-            </div>
-        <img src="assets/cake-no-candles.png" id="cake-base" alt="كعكة بدون شموع">
+        <h1 id="instructions">لعبة عيد الميلاد: ابحثي عن النجوم الخمسة المضيئة!</h1>
+        <div id="message-display"></div>
     </div>
 
-    <div id="surprise-container" class="hidden">
-        <div id="confetti-container"></div>
-        <img src="assets/cake-with-candles.png" id="final-cake" alt="كعكة مع شموع مضاءة">
-        <div id="birthday-message">
-            <h1 id="friend-name-placeholder">عيد ميلاد سعيد يا [اسم الصديقة]!</h1>
-            <p>أتمنى لكِ عامًا مليئًا بالسعادة والحب والنجاح. كل عام وأنتِ بألف خير!</p>
+    <div id="surprise">
+        <div id="birthday-card">
+            <h1>عيد ميلاد سعيد!</h1>
+            <p>
+                إلى صديقتي الغالية، كل عام وأنتِ بألف خير. أتمنى لكِ عامًا مليئًا بالسعادة والنجاح وكل الأشياء الجميلة التي تشبهك. أحبكِ جدًا!
+            </p>
         </div>
     </div>
 
-    <audio id="found-sound" src="assets/found-sound.mp3"></audio>
-    <audio id="birthday-music" src="assets/birthday-music.mp3" loop></audio>
+    <script>
+        const gameContainer = document.getElementById('game-container');
+        const instructions = document.getElementById('instructions');
+        const messageDisplay = document.getElementById('message-display');
+        const surprise = document.getElementById('surprise');
+        const totalStars = 5;
+        let starsFound = 0;
+        
+        // ** غير الكلمات هنا لتناسب رسالتك **
+        const messageWords = ["كل", "عام", "وأنتِ", "بألف", "خير!"];
 
-    <script src="script.js"></script>
+        function createStar() {
+            for (let i = 0; i < totalStars; i++) {
+                const star = document.createElement('div');
+                star.innerHTML = '✦'; // Star character
+                star.classList.add('star');
+                star.style.top = `${Math.random() * 85}%`;
+                star.style.left = `${Math.random() * 95}%`;
+                
+                star.addEventListener('click', () => {
+                    if (!star.classList.contains('found')) {
+                        star.classList.add('found');
+                        star.style.opacity = '0';
+                        star.style.transform = 'scale(2)';
+                        starsFound++;
+                        
+                        // Display part of the message
+                        let currentMessage = messageDisplay.innerText;
+                        messageDisplay.innerText = currentMessage + " " + messageWords[starsFound - 1];
+
+                        if (starsFound === totalStars) {
+                            endGame();
+                        }
+                    }
+                }, { once: true }); // The event listener will be removed after being invoked once
+
+                gameContainer.appendChild(star);
+            }
+        }
+
+        function endGame() {
+            // Fade out the game
+            gameContainer.style.transition = 'opacity 1s';
+            gameContainer.style.opacity = '0';
+            
+            // Wait for fade out, then show surprise
+            setTimeout(() => {
+                gameContainer.style.display = 'none';
+                document.body.style.backgroundColor = '#fce4ec'; // A soft pink background
+                surprise.style.display = 'flex';
+                createConfetti();
+            }, 1000);
+        }
+
+        function createConfetti() {
+            const confettiContainer = document.body;
+            for (let i = 0; i < 100; i++) {
+                const confetti = document.createElement('div');
+                confetti.classList.add('confetti');
+                confetti.style.left = `${Math.random() * 100}vw`;
+                confetti.style.backgroundColor = `hsl(${Math.random() * 360}, 100%, 50%)`;
+                confetti.style.animationDelay = `${Math.random() * 2}s`;
+                confettiContainer.appendChild(confetti);
+            }
+        }
+
+        createStar();
+    </script>
+
 </body>
 </html>
