@@ -1,412 +1,323 @@
 <!DOCTYPE html>
-<html lang="ar" dir="rtl">
+<html lang="ar">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>مفاجأة خاصة لكِ.....</title>
-    <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;700&display=swap" rel="stylesheet">
+    <title>لعبة المتاهة</title>
     <style>
-        :root {
-            --primary-color: #eab308; /* Gold */
-            --secondary-color: #581c87; /* Deep Purple */
-            --dark-color: #1e1b4b; /* Dark Indigo */
-            --light-color: #f8fafc; /* White Slate */
-        }
-
+        @import url('https://fonts.googleapis.com/css2?family=Cairo:wght@700&display=swap');
         body {
-            font-family: 'Tajawal', sans-serif;
-            margin: 0;
-            padding: 0;
-            background: linear-gradient(135deg, var(--dark-color) 0%, #312e81 100%);
-            color: var(--light-color);
+            font-family: 'Cairo', sans-serif;
+            background: linear-gradient(135deg, #43cea2, #185a9d);
+            color: #fff;
             display: flex;
             justify-content: center;
             align-items: center;
             height: 100vh;
+            margin: 0;
+            flex-direction: column;
             overflow: hidden;
-            perspective: 1000px;
+            text-align: center;
         }
 
-        .screen {
-            display: none;
+        h1 {
+            font-size: 3em;
+            text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.3);
+            margin-bottom: 20px;
+        }
+
+        #gameContainer {
+            position: relative;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+            padding: 20px;
+            display: flex;
             flex-direction: column;
             align-items: center;
-            justify-content: center;
-            width: 100%;
-            height: 100%;
-            animation: fadeIn 1s ease-in-out;
-            text-align: center;
-            padding: 20px;
-            box-sizing: border-box;
+            backdrop-filter: blur(5px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
         }
 
-        .screen.active {
+        canvas {
+            border: 5px solid #fff;
+            background-color: #2c3e50;
+            border-radius: 10px;
+            box-shadow: inset 0 0 10px rgba(0, 0, 0, 0.5);
+        }
+
+        #controls {
             display: flex;
+            justify-content: center;
+            gap: 20px;
+            margin-top: 20px;
         }
 
-        @keyframes fadeIn {
-            from { opacity: 0; transform: scale(0.95); }
-            to { opacity: 1; transform: scale(1); }
-        }
-
-        /* Start Screen */
-        #start-screen h1 {
-            font-size: 3.5rem;
-            text-shadow: 0 0 15px var(--primary-color);
-        }
-        #start-screen p {
-            font-size: 1.5rem;
-            max-width: 600px;
-        }
-        .cta-button {
-            background-color: var(--primary-color);
-            color: var(--dark-color);
-            border: none;
-            padding: 15px 35px;
-            font-size: 1.2rem;
-            font-weight: 700;
-            border-radius: 50px;
+        .control-button {
+            width: 60px;
+            height: 60px;
+            background-color: rgba(255, 255, 255, 0.2);
+            border: 2px solid #fff;
+            border-radius: 50%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 2em;
+            color: #fff;
             cursor: pointer;
-            transition: all 0.3s ease;
-            box-shadow: 0 5px 20px rgba(234, 179, 8, 0.4);
-            margin-top: 30px;
-        }
-        .cta-button:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 10px 30px rgba(234, 179, 8, 0.6);
+            transition: background-color 0.3s, transform 0.3s;
+            user-select: none;
         }
 
-        /* Quiz Screen */
-        #quiz-container {
-            background: rgba(0, 0, 0, 0.2);
+        .control-button:active {
+            background-color: rgba(255, 255, 255, 0.4);
+            transform: scale(0.95);
+        }
+
+        .congratulations {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background: rgba(0, 0, 0, 0.8);
+            color: #ffeb3b;
             padding: 40px;
             border-radius: 20px;
-            backdrop-filter: blur(10px);
-            width: 90%;
-            max-width: 500px;
-        }
-        #question {
-            font-size: 1.8rem;
-            margin-bottom: 20px;
-        }
-        #answer-input {
-            width: 100%;
-            padding: 15px;
-            border-radius: 10px;
-            border: 2px solid var(--primary-color);
-            background: transparent;
-            color: var(--light-color);
-            font-size: 1.2rem;
+            box-shadow: 0 0 20px rgba(255, 255, 255, 0.5);
             text-align: center;
-            margin-bottom: 20px;
-        }
-        #key-progress {
-            font-size: 2.5rem;
-            color: var(--primary-color);
-            letter-spacing: 10px;
-            margin-top: 20px;
-            height: 40px;
-        }
-        #error-message {
-            color: #ef4444;
-            height: 20px;
-            font-weight: bold;
+            z-index: 10;
+            animation: fadeInScale 1s forwards;
+            border: 5px solid #ffeb3b;
         }
 
-        /* Chest Screen */
-        #chest-container {
-            position: relative;
-            cursor: pointer;
-        }
-        #chest-base {
-            width: 300px;
-        }
-        #chest-lid {
-            width: 300px;
-            position: absolute;
-            top: 0;
-            left: 0;
-            transform-origin: top;
-            transition: transform 1.5s cubic-bezier(0.68, -0.55, 0.27, 1.55);
-        }
-        #chest-container.open #chest-lid {
-            transform: rotateX(-120deg);
-        }
-        #unlock-message {
-            font-size: 1.5rem;
-            position: absolute;
-            bottom: -80px;
-            width: 100%;
-            text-align: center;
-            text-shadow: 0 0 10px #000;
+        .congratulations h2 {
+            font-size: 4em;
+            margin: 0;
+            text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.5);
         }
 
-        /* Inside Chest Screen */
-        #inside-chest-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
-            gap: 25px;
-            padding: 20px;
-            max-width: 700px;
-            background: rgba(0, 0, 0, 0.3);
-            border-radius: 15px;
-        }
-        .memory-item {
-            width: 120px;
-            height: 120px;
-            border-radius: 10px;
-            background-size: cover;
-            background-position: center;
-            border: 3px solid var(--primary-color);
-            cursor: pointer;
-            transition: all 0.3s ease;
-            box-shadow: 0 5px 15px rgba(0,0,0,0.5);
-        }
-        .memory-item:hover {
-            transform: scale(1.1) rotate(3deg);
-            box-shadow: 0 8px 25px rgba(234, 179, 8, 0.5);
+        .congratulations p {
+            font-size: 1.5em;
+            margin: 10px 0 0;
         }
 
-        /* Memory Popup */
-        #memory-popup {
-            position: fixed;
-            top: 0; left: 0;
-            width: 100%; height: 100%;
-            background: rgba(0,0,0,0.7);
-            backdrop-filter: blur(5px);
-            display: none;
-            align-items: center;
-            justify-content: center;
-            z-index: 100;
+        @keyframes fadeInScale {
+            from {
+                opacity: 0;
+                transform: translate(-50%, -50%) scale(0.5);
+            }
+            to {
+                opacity: 1;
+                transform: translate(-50%, -50%) scale(1);
+            }
         }
-        #memory-popup-content {
-            background: var(--light-color);
-            color: var(--dark-color);
-            padding: 30px;
-            border-radius: 15px;
-            max-width: 400px;
-            text-align: center;
-        }
-        #memory-popup-content p {
-            font-size: 1.3rem;
-        }
-
-        /* Final Surprise */
-        #final-surprise {
-            text-align: center;
-        }
-        #final-surprise h1 {
-            font-size: 4.5rem;
-            color: var(--primary-color);
-            animation: pulse 1.5s infinite;
-        }
-        @keyframes pulse {
-            0% { transform: scale(1); text-shadow: 0 0 15px var(--primary-color); }
-            50% { transform: scale(1.05); text-shadow: 0 0 25px var(--primary-color); }
-            100% { transform: scale(1); text-shadow: 0 0 15px var(--primary-color); }
-        }
-        #final-surprise p {
-            font-size: 1.6rem;
-            max-width: 600px;
-            line-height: 1.8;
-        }
-        
-        /* Confetti */
-        .confetti {
-            position: fixed;
-            width: 15px;
-            height: 15px;
-            background-color: #f00;
-            opacity: 0.9;
-            animation: fall 5s linear infinite;
-        }
-        @keyframes fall {
-          to { transform: translateY(100vh) rotate(720deg); opacity: 0; }
-        }
-
     </style>
 </head>
 <body>
-
-    <div id="start-screen" class="screen active">
-        <h1>صندوق سحري في انتظارك</h1>
-        <p>هذا الصندوق يحمل في طياته ذكريات خاصة جدًا. هل تملكين الشجاعة لفتحه واكتشاف ما بداخله؟</p>
-        <button class="cta-button" onclick="showScreen('quiz-screen')">ابدئي المغامرة</button>
-    </div>
-
-    <div id="quiz-screen" class="screen">
-        <div id="quiz-container">
-            <h2 id="question"></h2>
-            <p id="error-message"></p>
-            <input type="text" id="answer-input" placeholder="اكتبي إجابتك هنا...">
-            <button class="cta-button" onclick="checkAnswer()">تأكيد الإجابة</button>
-            <div id="key-progress"></div>
+    <h1>لعبة المتاهة</h1>
+    <div id="gameContainer">
+        <canvas id="mazeCanvas"></canvas>
+        <div id="controls">
+            <div class="control-button" id="up">↑</div>
+            <div class="control-button" id="left">←</div>
+            <div class="control-button" id="down">↓</div>
+            <div class="control-button" id="right">→</div>
         </div>
     </div>
-    
-    <div id="chest-screen" class="screen">
-        <div id="chest-container" onclick="openChest()">
-            <img id="chest-base" src="https://i.ibb.co/k3d2JkM/chest-base.png" alt="Chest Base">
-            <img id="chest-lid" src="https://i.ibb.co/3kGMZtP/chest-lid.png" alt="Chest Lid">
-            <p id="unlock-message">لقد حصلتِ على المفتاح! اضغطي على الصندوق لفتحه</p>
-        </div>
-    </div>
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const canvas = document.getElementById('mazeCanvas');
+            const ctx = canvas.getContext('2d');
+            const gameContainer = document.getElementById('gameContainer');
 
-    <div id="inside-chest-screen" class="screen">
-        <h2>ذكرياتنا الثمينة...</h2>
-        <p>اضغطي على كل عنصر لتكشفي عن ذكرى جميلة.</p>
-        <div id="inside-chest-grid">
-            </div>
-    </div>
-    
-    <div id="memory-popup" onclick="this.style.display='none'">
-        <div id="memory-popup-content">
-            <h3 id="memory-popup-title"></h3>
-            <p id="memory-popup-text"></p>
-            <button class="cta-button" style="background-color: var(--secondary-color); color: white; margin-top:10px;">إغلاق</button>
-        </div>
-    </div>
+            const gridSize = 15;
+            const mazeSize = 25;
+            const cellSize = 20;
+            const wallSize = 2;
+            const playerSize = 10;
+            const startColor = '#e74c3c';
+            const endColor = '#2ecc71';
+            const pathColor = '#fff';
+            const wallColor = '#bdc3c7';
+            const playerColor = '#f1c40f';
 
-    <div id="final-surprise" class="screen">
-        <h1>عيد ميلاد سعيد يا أغلى صديقة!</h1>
-        <p>
-            كل عام وأنتِ النور الذي يضيء أيامي. كل عام وأنتِ أقرب إلى قلبي. أتمنى لكِ عامًا مليئًا بالضحكات التي لا تنتهي، والأحلام التي تتحقق، والسعادة التي تستحقينها وأكثر. أحبكِ إلى ما لا نهاية!
-        </p>
-    </div>
+            canvas.width = mazeSize * cellSize;
+            canvas.height = mazeSize * cellSize;
 
-<script>
-    // ======== الإعدادات القابلة للتخصيص ========
+            const maze = [];
+            let player = {
+                x: 0,
+                y: 0
+            };
+            const end = {
+                x: mazeSize - 1,
+                y: mazeSize - 1
+            };
 
-    // ** 1. غيري الأسئلة والإجابات هنا **
-    // يجب أن تكون الإجابات بسيطة وبكلمة واحدة ليسهل إدخالها.
-    const quizData = [
-        { question: "أين كانت أول مرة التقينا فيها؟", answer: "الجامعة" },
-        { question: "ما هو لوننا المفضل المشترك؟", answer: "ازرق" },
-        { question: "ما اسم فيلمنا المفضل الذي شاهدناه معًا؟", answer: "تيتانيك" }
-    ];
+            function createMaze() {
+                for (let i = 0; i < mazeSize; i++) {
+                    maze[i] = [];
+                    for (let j = 0; j < mazeSize; j++) {
+                        maze[i][j] = {
+                            x: j,
+                            y: i,
+                            walls: {
+                                top: true,
+                                right: true,
+                                bottom: true,
+                                left: true
+                            },
+                            visited: false
+                        };
+                    }
+                }
+            }
 
-    // ** 2. غيري الذكريات هنا **
-    // استخدمي صورًا حقيقية عن طريق رفعها على موقع مثل imgbb.com وأخذ الرابط المباشر.
-    const memories = [
-        {
-            title: "يوم على الشاطئ",
-            text: "هل تتذكرين هذا اليوم؟ كانت الضحكات أعلى من صوت الأمواج! يوم لا يُنسى أبدًا.",
-            image: "https://picsum.photos/id/1015/200/200" // رابط صورتك
-        },
-        {
-            title: "تخرجنا!",
-            text: "اللحظة التي شعرنا فيها أننا نستطيع قهر العالم! فخورة بنا وبكل ما حققناه.",
-            image: "https://picsum.photos/id/1025/200/200" // رابط صورتك
-        },
-        {
-            title: "مغامرة القهوة",
-            text: "أفضل الأحاديث وأعمق الأسرار كانت دائمًا على فنجان قهوة. لكل كوب ذكرى.",
-            image: "https://picsum.photos/id/1060/200/200" // رابط صورتك
-        },
-        // ** العنصر الأخير هو بطاقة عيد الميلاد - لا تغيريه **
-        {
-            title: "رسالة خاصة لكِ",
-            text: "اضغطي هنا لتقرئي رسالتي لكِ...",
-            image: "https://i.ibb.co/zVv4w2s/gift-card.png",
-            isFinal: true
-        }
-    ];
+            function generateMaze(startX, startY) {
+                const stack = [];
+                let current = maze[startY][startX];
+                current.visited = true;
+                stack.push(current);
 
-    // ======== منطق اللعبة (لا داعي لتغيير هذا الجزء) ========
+                while (stack.length > 0) {
+                    const neighbors = [];
+                    const top = maze[current.y - 1] ? maze[current.y - 1][current.x] : null;
+                    const right = maze[current.y][current.x + 1];
+                    const bottom = maze[current.y + 1] ? maze[current.y + 1][current.x] : null;
+                    const left = maze[current.y][current.x - 1];
 
-    let currentQuestionIndex = 0;
-    let unlockedKeyParts = 0;
-    const keySymbols = ['🗝️', '🔑', '🔐'];
+                    if (top && !top.visited) neighbors.push(top);
+                    if (right && !right.visited) neighbors.push(right);
+                    if (bottom && !bottom.visited) neighbors.push(bottom);
+                    if (left && !left.visited) neighbors.push(left);
 
-    const screens = document.querySelectorAll('.screen');
-    const questionEl = document.getElementById('question');
-    const answerInput = document.getElementById('answer-input');
-    const keyProgressEl = document.getElementById('key-progress');
-    const errorMessageEl = document.getElementById('error-message');
+                    if (neighbors.length > 0) {
+                        const next = neighbors[Math.floor(Math.random() * neighbors.length)];
 
-    function showScreen(screenId) {
-        screens.forEach(screen => screen.classList.remove('active'));
-        document.getElementById(screenId).classList.add('active');
-        if (screenId === 'quiz-screen') {
-            loadQuestion();
-        }
-    }
+                        if (next.x > current.x) { // right
+                            current.walls.right = false;
+                            next.walls.left = false;
+                        } else if (next.x < current.x) { // left
+                            current.walls.left = false;
+                            next.walls.right = false;
+                        } else if (next.y > current.y) { // bottom
+                            current.walls.bottom = false;
+                            next.walls.top = false;
+                        } else if (next.y < current.y) { // top
+                            current.walls.top = false;
+                            next.walls.bottom = false;
+                        }
 
-    function loadQuestion() {
-        if (currentQuestionIndex < quizData.length) {
-            questionEl.textContent = quizData[currentQuestionIndex].question;
-            answerInput.value = '';
-            answerInput.focus();
-            errorMessageEl.textContent = '';
-        } else {
-            // Quiz finished, show chest
-            showScreen('chest-screen');
-        }
-    }
+                        next.visited = true;
+                        stack.push(next);
+                        current = next;
+                    } else {
+                        current = stack.pop();
+                    }
+                }
+            }
 
-    function checkAnswer() {
-        const userAnswer = answerInput.value.trim();
-        if (userAnswer.toLowerCase() === quizData[currentQuestionIndex].answer.toLowerCase()) {
-            currentQuestionIndex++;
-            unlockedKeyParts++;
-            keyProgressEl.textContent += '🔑';
-            loadQuestion();
-        } else {
-            errorMessageEl.textContent = "إجابة خاطئة، حاولي مرة أخرى!";
-            answerInput.style.animation = 'shake 0.5s';
-            setTimeout(() => answerInput.style.animation = '', 500);
-        }
-    }
+            function drawMaze() {
+                ctx.clearRect(0, 0, canvas.width, canvas.height);
+                ctx.fillStyle = wallColor;
 
-    function openChest() {
-        const chest = document.getElementById('chest-container');
-        if (!chest.classList.contains('open')) {
-            chest.classList.add('open');
-            document.getElementById('unlock-message').style.opacity = '0';
-            setTimeout(() => {
-                showScreen('inside-chest-screen');
-                populateMemories();
-            }, 1500); // Wait for animation
-        }
-    }
+                for (let i = 0; i < mazeSize; i++) {
+                    for (let j = 0; j < mazeSize; j++) {
+                        const cell = maze[i][j];
+                        const x = cell.x * cellSize;
+                        const y = cell.y * cellSize;
 
+                        if (cell.walls.top) {
+                            ctx.fillRect(x, y, cellSize, wallSize);
+                        }
+                        if (cell.walls.right) {
+                            ctx.fillRect(x + cellSize - wallSize, y, wallSize, cellSize);
+                        }
+                        if (cell.walls.bottom) {
+                            ctx.fillRect(x, y + cellSize - wallSize, cellSize, wallSize);
+                        }
+                        if (cell.walls.left) {
+                            ctx.fillRect(x, y, wallSize, cellSize);
+                        }
+                    }
+                }
+                
+                // Draw start and end points
+                ctx.fillStyle = startColor;
+                ctx.fillRect(0, 0, cellSize, cellSize);
+                ctx.fillStyle = endColor;
+                ctx.fillRect(end.x * cellSize, end.y * cellSize, cellSize, cellSize);
 
-    function populateMemories() {
-        const grid = document.getElementById('inside-chest-grid');
-        memories.forEach(memory => {
-            const item = document.createElement('div');
-            item.classList.add('memory-item');
-            item.style.backgroundImage = `url(${memory.image})`;
-            item.onclick = () => showMemoryPopup(memory);
-            grid.appendChild(item);
+                // Draw player
+                ctx.fillStyle = playerColor;
+                ctx.beginPath();
+                ctx.arc(player.x * cellSize + cellSize / 2, player.y * cellSize + cellSize / 2, playerSize, 0, Math.PI * 2);
+                ctx.fill();
+            }
+
+            function movePlayer(dx, dy) {
+                const currentCell = maze[player.y][player.x];
+                let newX = player.x + dx;
+                let newY = player.y + dy;
+
+                if (newX < 0 || newX >= mazeSize || newY < 0 || newY >= mazeSize) {
+                    return;
+                }
+
+                if (dx > 0 && currentCell.walls.right) return;
+                if (dx < 0 && currentCell.walls.left) return;
+                if (dy > 0 && currentCell.walls.bottom) return;
+                if (dy < 0 && currentCell.walls.top) return;
+
+                player.x = newX;
+                player.y = newY;
+                drawMaze();
+
+                if (player.x === end.x && player.y === end.y) {
+                    showCongratulations();
+                }
+            }
+
+            function showCongratulations() {
+                const congrats = document.createElement('div');
+                congrats.className = 'congratulations';
+                congrats.innerHTML = `<h2>تهانينا!</h2><p>كل عام وأنت بألف خير!</p>`;
+                gameContainer.appendChild(congrats);
+            }
+
+            function setupControls() {
+                document.getElementById('up').addEventListener('click', () => movePlayer(0, -1));
+                document.getElementById('down').addEventListener('click', () => movePlayer(0, 1));
+                document.getElementById('left').addEventListener('click', () => movePlayer(-1, 0));
+                document.getElementById('right').addEventListener('click', () => movePlayer(1, 0));
+
+                document.addEventListener('keydown', (e) => {
+                    switch (e.key) {
+                        case 'ArrowUp':
+                            movePlayer(0, -1);
+                            break;
+                        case 'ArrowDown':
+                            movePlayer(0, 1);
+                            break;
+                        case 'ArrowLeft':
+                            movePlayer(-1, 0);
+                            break;
+                        case 'ArrowRight':
+                            movePlayer(1, 0);
+                            break;
+                    }
+                });
+            }
+            
+            function init() {
+                createMaze();
+                generateMaze(0, 0);
+                drawMaze();
+                setupControls();
+            }
+
+            init();
         });
-    }
-
-    function showMemoryPopup(memory) {
-        if (memory.isFinal) {
-            showScreen('final-surprise');
-            launchConfetti();
-        } else {
-            document.getElementById('memory-popup-title').textContent = memory.title;
-            document.getElementById('memory-popup-text').textContent = memory.text;
-            document.getElementById('memory-popup').style.display = 'flex';
-        }
-    }
-    
-    function launchConfetti() {
-        for (let i = 0; i < 150; i++) {
-            const confetti = document.createElement('div');
-            confetti.classList.add('confetti');
-            confetti.style.left = `${Math.random() * 100}vw`;
-            confetti.style.top = `${Math.random() * -50}vh`;
-            confetti.style.backgroundColor = `hsl(${Math.random() * 360}, 100%, 70%)`;
-            confetti.style.animationDelay = `${Math.random() * 3}s`;
-            confetti.style.transform = `rotate(${Math.random() * 360}deg)`
-            document.body.appendChild(confetti);
-        }
-    }
-
-</script>
-
+    </script>
 </body>
 </html>
