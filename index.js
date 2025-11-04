@@ -28,21 +28,10 @@ const APP_DATA = {
                     id: 1, 
                     title: 'المادة السنية', 
                     content: [
-                        { title: 'المحاضرة 1', url: 'https://t.me/your_bot_link/s1_dental_material_lec1' },
-                        { title: 'المحاضرة 2', url: 'https://t.me/your_bot_link/s1_dental_material_lec2' },
-                        { title: 'المحاضرة 3', url: 'https://t.me/your_bot_link/s1_dental_material_lec3' },
-                        { title: 'المحاضرة 4', url: 'https://t.me/your_bot_link/s1_dental_material_lec4' },
-                        { title: 'المحاضرة 5', url: 'https://t.me/your_bot_link/s1_dental_material_lec5' },
-                        { title: 'المحاضرة 6', url: 'https://t.me/your_bot_link/s1_dental_material_lec6' },
-                        { title: 'المحاضرة 7', url: 'https://t.me/your_bot_link/s1_dental_material_lec7' },
-                        { title: 'المحاضرة 8', url: 'https://t.me/your_bot_link/s1_dental_material_lec8' },
-                        { title: 'المحاضرة 9', url: 'https://t.me/your_bot_link/s1_dental_material_lec9' },
-                        { title: 'المحاضرة 10', url: 'https://t.me/your_bot_link/s1_dental_material_lec10' },
-                        { title: 'المحاضرة 11', url: 'https://t.me/your_bot_link/s1_dental_material_lec11' },
-                        { title: 'المحاضرة 12', url: 'https://t.me/your_bot_link/s1_dental_material_lec12' },
-                        { title: 'المحاضرة 13', url: 'https://t.me/your_bot_link/s1_dental_material_lec13' },
-                        { title: 'المحاضرة 14', url: 'https://t.me/your_bot_link/s1_dental_material_lec14' },
-                        { title: 'المحاضرة 15', url: 'null' },
+                        { title: 'المحاضرة 1', url: 'null' },
+                        { title: 'المحاضرة 2', url: 'null' },
+                        { title: 'المحاضرة 3', url: 'null' },
+
                         // (لإضافة محاضرة جديدة، انسخ السطر الاعلى وغيّر الرابط والعنوان)
                     ] 
                 },
@@ -50,9 +39,9 @@ const APP_DATA = {
                     id: 2, 
                     title: 'تشريح الأسنان', 
                     content: [
-                        { title: 'المحاضرة 1', url: 'https://t.me/your_bot_link/s1_tooth_anatomy_lec1' },
-                        { title: 'المحاضرة 2', url: 'https://t.me/your_bot_link/s1_tooth_anatomy_lec2' },
-                        { title: 'المحاضرة 3', url: 'https://t.me/your_bot_link/s1_tooth_anatomy_lec3' },
+                        { title: 'المحاضرة 1', url: 'null' },
+                        { title: 'المحاضرة 2', url: 'null' },
+                        { title: 'المحاضرة 3', url: 'null' },
                         // (أكمل باقي المحاضرات هنا)
                     ]
                 },
@@ -60,7 +49,7 @@ const APP_DATA = {
                     id: 3, 
                     title: 'أجهزة الأسنان', 
                     content: [
-                        { title: 'المحاضرة 1', url: 'https://t.me/your_bot_link/s1_dental_appliances_lec1' },
+                        { title: 'المحاضرة 1', url: 'null' },
                         // (أكمل باقي المحاضرات هنا)
                     ] 
                 },
@@ -74,8 +63,8 @@ const APP_DATA = {
                     id: 1, 
                     title: 'تيجان وجسور', 
                     content: [
-                        { title: 'المحاضرة 1', url: 'https://t.me/your_bot_link/s2_crowns_bridges_lec1' },
-                        { title: 'المحاضرة 2', url: 'https://t.me/your_bot_link/s2_crowns_bridges_lec2' },
+                        { title: 'المحاضرة 1', url: 'null' },
+                        { title: 'المحاضرة 2', url: 'null' },
                         // (أكمل باقي المحاضرات هنا)
                     ]
                 },
@@ -83,8 +72,8 @@ const APP_DATA = {
                     id: 2, 
                     title: 'الطقم الكامل', 
                     content: [
-                        { title: 'المحاضرة 1', url: 'https://t.me/your_bot_link/s2_complete_denture_lec1' },
-                        { title: 'المحاضرة 2', url: 'https://t.me/your_bot_link/s2_complete_denture_lec2' },
+                        { title: 'المحاضرة 1', url: 'null' },
+                        { title: 'المحاضرة 2', url: 'null' },
                         // (أكمل باقي المحاضرات هنا)
                     ] 
                 }, 
@@ -93,7 +82,7 @@ const APP_DATA = {
                     title: 'كيمياء', 
                     content: [
                         { title: 'المحاضرة 1', url: 'https://t.me/dentaItechnician_bot?start=phase_2-chemistry-1' },
-                        { title: 'المحاضرة 2', url: 'https://t.me/your_bot_link/s2_complete_denture_lec2' },
+                        { title: 'المحاضرة 2', url: 'null' },
                         // (أكمل باقي المحاضرات هنا)
                     ] 
                 },
@@ -115,10 +104,10 @@ const APP_DATA = {
                     id: 1, 
                     title: 'طقم كامل', 
                     videos: [
-                        { id: 'dQw4w9WgXcQ', title: 'ريكورد بيس upper وlower' },
-                        { id: '3JZ_D3ELwOQ', title: 'finishing the record base' },
-                        { id: 'L_jWHffIx5E', title: 'بايت رم bite rim' },
-                        { id: 'Y-3L5D8KSdY', title: 'mounting the cast on articulator' },
+                        { id: 'null', title: 'ريكورد بيس upper وlower' },
+                        { id: 'null', title: 'finishing the record base' },
+                        { id: 'null', title: 'بايت رم bite rim' },
+                        { id: 'null', title: 'mounting the cast on articulator' },
                         // (لإضافة فيديو، ضع الـ ID والعنوان هنا)
                     ]
                 },
@@ -126,8 +115,8 @@ const APP_DATA = {
                     id: 2, 
                     title: 'تيجان وجسور', 
                     videos: [
-                        { id: 'p2Glb2c_f_0', title: 'مقدمة في التيجان والجسور' },
-                        { id: 'VyItv3_gK1E', title: 'تحضير السن للتاج' },
+                        { id: 'null', title: 'مقدمة في التيجان والجسور' },
+                        { id: 'null', title: 'تحضير السن للتاج' },
                     ]
                 },
             ]
@@ -138,8 +127,8 @@ const APP_DATA = {
 
     // --- بيانات "Technician Daily" ---
     technicianDaily: [
-        { id: 1, url: 'https://www.instagram.com/p/C27a-e4sZfQ/', thumbnail: 'https://picsum.photos/seed/1/400/400' },
-        { id: 2, url: 'https://www.instagram.com/p/C2yG1ZXM8wT/', thumbnail: 'https://picsum.photos/seed/2/400/400' },
+        { id: 1, url: 'https://www.instagram.com/p/C27a-e4sZfQ/', thumbnail: 'null' },
+        { id: 2, url: 'null', thumbnail: 'https://picsum.photos/seed/2/400/400' },
         { id: 3, url: 'https://www.instagram.com/p/C2v8t05Mj3o/', thumbnail: 'https://picsum.photos/seed/3/400/400' },
         { id: 4, url: 'https://www.instagram.com/p/C2tS6h-sD_w/', thumbnail: 'https://picsum.photos/seed/4/400/400' },
         { id: 5, url: 'https://www.instagram.com/p/C2qW-uUMX2r/', thumbnail: 'https://picsum.photos/seed/5/400/400' },
