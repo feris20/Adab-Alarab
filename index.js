@@ -128,7 +128,7 @@ const APP_DATA = {
     // --- بيانات "Technician Daily" ---
     technicianDaily: [
         { id: 1, url: 'https://www.instagram.com/p/C27a-e4sZfQ/', thumbnail: 'https://ibb.co/VYKsKzvj' },
-        { id: 2, url: 'https://www.instagram.com/p/C2v8t05Mj3o/', thumbnail: 'https://picsum.photos/seed/2/400/400' },
+        { id: 2, url: 'https://www.instagram.com/p/C2v8t05Mj3o/', thumbnail: 'https://ibb.co/VYKsKzvj' },
         { id: 3, url: 'https://www.instagram.com/p/C2v8t05Mj3o/', thumbnail: 'https://ibb.co/VYKsKzvj' },
         { id: 4, url: 'https://www.instagram.com/p/C2tS6h-sD_w/', thumbnail: 'https://ibb.co/VYKsKzvj' },
         { id: 5, url: 'https://www.instagram.com/p/C2qW-uUMX2r/', thumbnail: 'https://ibb.co/VYKsKzvj' },
