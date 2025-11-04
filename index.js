@@ -42,7 +42,7 @@ const APP_DATA = {
                         { title: 'المحاضرة 12', url: 'https://t.me/your_bot_link/s1_dental_material_lec12' },
                         { title: 'المحاضرة 13', url: 'https://t.me/your_bot_link/s1_dental_material_lec13' },
                         { title: 'المحاضرة 14', url: 'https://t.me/your_bot_link/s1_dental_material_lec14' },
-                        { title: 'المحاضرة 15', url: 'https://t.me/your_bot_link/s1_dental_material_lec15' },
+                        { title: 'المحاضرة 15', url: 'null' },
                         // (لإضافة محاضرة جديدة، انسخ السطر الاعلى وغيّر الرابط والعنوان)
                     ] 
                 },
