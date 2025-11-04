@@ -208,7 +208,7 @@ const render = () => {
                         </button>
                     </div>
                 </div>
-                <footer class="text-sky-200 text-sm">@username</footer>
+                <footer class="text-sky-200 text-sm">@firaswaleed</footer>
             </div>`;
             break;
 
