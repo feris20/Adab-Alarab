@@ -87,7 +87,17 @@ const APP_DATA = {
                         { title: 'المحاضرة 2', url: 'https://t.me/your_bot_link/s2_complete_denture_lec2' },
                         // (أكمل باقي المحاضرات هنا)
                     ] 
+                }, 
+                { 
+                    id: 3, 
+                    title: 'كيمياء', 
+                    content: [
+                        { title: 'المحاضرة 1', url: 'https://t.me/dentaItechnician_bot?start=phase_2-chemistry-1' },
+                        { title: 'المحاضرة 2', url: 'https://t.me/your_bot_link/s2_complete_denture_lec2' },
+                        // (أكمل باقي المحاضرات هنا)
+                    ] 
                 },
+              
             ]
         },
         { id: 3, title: 'المرحلة الثالثة', subjects: null }, // (null) يعني "قيد التحديث"
