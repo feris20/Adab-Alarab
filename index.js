@@ -127,12 +127,12 @@ const APP_DATA = {
 
     // --- بيانات "Technician Daily" ---
     technicianDaily: [
-        { id: 1, url: 'https://www.instagram.com/p/C27a-e4sZfQ/', thumbnail: 'null' },
-        { id: 2, url: 'null', thumbnail: 'https://picsum.photos/seed/2/400/400' },
-        { id: 3, url: 'https://www.instagram.com/p/C2v8t05Mj3o/', thumbnail: 'https://picsum.photos/seed/3/400/400' },
-        { id: 4, url: 'https://www.instagram.com/p/C2tS6h-sD_w/', thumbnail: 'https://picsum.photos/seed/4/400/400' },
-        { id: 5, url: 'https://www.instagram.com/p/C2qW-uUMX2r/', thumbnail: 'https://picsum.photos/seed/5/400/400' },
-        { id: 6, url: 'https://www.instagram.com/p/C2nhwQDs6Uo/', thumbnail: 'https://picsum.photos/seed/6/400/400' },
+        { id: 1, url: 'https://www.instagram.com/p/C27a-e4sZfQ/', thumbnail: 'https://ibb.co/VYKsKzvj' },
+        { id: 2, url: 'https://www.instagram.com/p/C2v8t05Mj3o/', thumbnail: 'https://picsum.photos/seed/2/400/400' },
+        { id: 3, url: 'https://www.instagram.com/p/C2v8t05Mj3o/', thumbnail: 'https://ibb.co/VYKsKzvj' },
+        { id: 4, url: 'https://www.instagram.com/p/C2tS6h-sD_w/', thumbnail: 'https://ibb.co/VYKsKzvj' },
+        { id: 5, url: 'https://www.instagram.com/p/C2qW-uUMX2r/', thumbnail: 'https://ibb.co/VYKsKzvj' },
+        { id: 6, url: 'https://www.instagram.com/p/C2nhwQDs6Uo/', thumbnail: 'https://ibb.co/VYKsKzvj' },
         // (لإضافة منشور، ضع الرابط ورابط الصورة المصغرة)
     ]
 };
