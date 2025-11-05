@@ -90,6 +90,16 @@ const APP_DATA = {
                             "title": "المحاضرة 2 - نظري لكجر ٢و٣"
                         }
                     ]
+                },
+                {
+                    "id": 5,
+                    "title": "طقم كامل",
+                    "content": [
+                        {
+                            "url": "https://t.me/dentaItechnician_bot?start=pdf_10",
+                            "title": "المحاضرة 5 - كومبليت لكجر ٥"
+                        }
+                    ]
                 }
             ]
         },
