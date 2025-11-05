@@ -76,6 +76,16 @@ const APP_DATA = {
                             "title": "المحاضرة 4 - نظري لكجر ٤"
                         }
                     ]
+                },
+                {
+                    "id": 4,
+                    "title": "أنسجة",
+                    "content": [
+                        {
+                            "url": "https://t.me/dentaItechnician_bot?start=pdf_8",
+                            "title": "المحاضرة 1 - نظري لكجر ١"
+                        }
+                    ]
                 }
             ]
         },
