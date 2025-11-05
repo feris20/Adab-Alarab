@@ -17,6 +17,11 @@ const InstagramIcon = (className = '') => `
 // =================================================================
 // --- 💡 بيانات التطبيق (المكان الوحيد الذي تحتاج تعديله) ---
 // =================================================================
+
+// --- روابط الأزرار الجديدة (قم بتغييرها هنا) ---
+const UPLOAD_FILE_URL = 'null'; // رابط تحميل ملف إلى الموقع
+const LOADED_FILES_URL = 'null'; // رابط الملفات المحملة
+
 const APP_DATA = {
     // --- بيانات المحاضرات الدراسية ---
     stages: [
@@ -208,7 +213,17 @@ const render = () => {
                         </button>
                     </div>
                 </div>
-                <footer class="text-sky-200 text-sm">@firaswaleed</footer>
+                
+                <div class="mt-8 w-full max-w-xs mx-auto space-y-3">
+                    <a href="${UPLOAD_FILE_URL}" target="_blank" class="block w-full bg-white/10 text-white font-semibold py-2 px-4 rounded-lg shadow-md hover:bg-white/20 transition-colors duration-200 backdrop-blur-sm ${UPLOAD_FILE_URL === 'null' ? 'opacity-50 cursor-not-allowed' : ''}">
+                        تحميل ملف إلى الموقع
+                    </a>
+                    <a href="${LOADED_FILES_URL}" target="_blank" class="block w-full bg-white/10 text-white font-semibold py-2 px-4 rounded-lg shadow-md hover:bg-white/20 transition-colors duration-200 backdrop-blur-sm ${LOADED_FILES_URL === 'null' ? 'opacity-50 cursor-not-allowed' : ''}">
+                        الملفات المحملة
+                    </a>
+                </div>
+                
+                <footer class="text-sky-200 text-sm mt-4">@firaswaleed</footer>
             </div>`;
             break;
 
@@ -249,10 +264,10 @@ const render = () => {
                 <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-4">
                     ${subject.content.map(lecture => `
                         <div class="flex flex-col items-center">
-                            <button data-action="lecture-click" data-url="${lecture.url}" class="w-full h-24 flex items-center justify-center bg-white rounded-xl shadow-md hover:shadow-lg transition-all duration-300 text-sky-700 font-bold text-lg ${!lecture.url ? 'opacity-50 cursor-not-allowed' : 'hover:bg-sky-50'}">
+                            <button data-action="lecture-click" data-url="${lecture.url}" class="w-full h-24 flex items-center justify-center bg-white rounded-xl shadow-md hover:shadow-lg transition-all duration-300 text-sky-700 font-bold text-lg ${!lecture.url || lecture.url === 'null' ? 'opacity-50 cursor-not-allowed' : 'hover:bg-sky-50'}">
                                 ${lecture.title.split(' ')[1]}
                             </button>
-                            ${!lecture.url ? '<p class="text-xs text-red-500 mt-1">المحتوى فارغ</p>' : ''}
+                            ${!lecture.url || lecture.url === 'null' ? '<p class="text-xs text-red-500 mt-1">المحتوى فارغ</p>' : ''}
                         </div>
                     `).join('')}
                 </div>`;
