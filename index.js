@@ -1,5 +1,5 @@
 // --- ICONS (لا حاجة لتعديلها) ---
-const LOGO_URL = 'https://www.imagehost.at/image/h3smU'; // الرابط الجديد للشعار
+const LOGO_URL = '1762332951_0 (1).png'; // الرابط الجديد للشعار
 
 const ToothLogo = (className = '') => `
   <img src="${LOGO_URL}" alt="Logo" class="${className} object-contain" />
