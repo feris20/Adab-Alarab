@@ -1,8 +1,9 @@
 // --- ICONS (لا حاجة لتعديلها) ---
+const LOGO_URL = 'https://freeimage.host/i/KZ1jnEB'; // الرابط الجديد للشعار
+
 const ToothLogo = (className = '') => `
-  <svg class="${className}" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-    <path d="M7 21C7 18.2386 9.23858 16 12 16C14.7614 16 17 18.2386 17 21M17 10C17 13.3137 14.7614 16 12 16C9.23858 16 7 13.3137 7 10C7 6.68629 9.23858 4 12 4C14.7614 4 17 6.68629 17 10ZM17 10H19C20.1046 10 21 9.10457 21 8C21 6.89543 20.1046 6 19 6C17.8954 6 17 6.89543 17 8V10ZM7 10H5C3.89543 10 3 9.10457 3 8C3 6.89543 3.89543 6 5 6C6.10457 6 7 6.89543 7 8V10Z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-  </svg>`;
+  <img src="${LOGO_URL}" alt="Logo" class="${className} object-contain" />
+`;
 
 const ArrowRightIcon = (className = '') => `
   <svg xmlns="http://www.w3.org/2000/svg" class="${className}" fill="none" viewBox="0 0 24 24" stroke="currentColor">
