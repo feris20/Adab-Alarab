@@ -44,6 +44,16 @@ const APP_DATA = {
                             "title": "المحاضرة 2 - كيمياء ٢ نظري"
                         }
                     ]
+                },
+                {
+                    "id": 2,
+                    "title": "تيجان وجسور",
+                    "content": [
+                        {
+                            "url": "https://t.me/dentaItechnician_bot?start=pdf_3",
+                            "title": "المحاضرة 1 - 2 كراون"
+                        }
+                    ]
                 }
             ]
         },
