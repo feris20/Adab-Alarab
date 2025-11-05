@@ -198,7 +198,7 @@ const render = () => {
             html = `
             <div class="min-h-screen bg-gradient-to-b from-sky-400 to-sky-600 text-white flex flex-col justify-between p-6 text-center">
                 <div class="flex-grow flex flex-col items-center justify-center">
-                    ${ToothLogo('w-24 h-24 mb-4 text-white')}
+                    ${ToothLogo('w-32 h-32 mb-4 text-white')}
                     <h1 class="text-4xl font-bold tracking-tight">تقنيات صناعة الأسنان</h1>
                     <p class="text-xl text-sky-100">جامعة دجلة</p>
                     
