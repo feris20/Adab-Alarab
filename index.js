@@ -87,7 +87,7 @@ const APP_DATA = {
                     title: 'كيمياء', 
                     content: [
                         { title: 'المحاضرة 1', url: 'https://t.me/dentaItechnician_bot?start=phase_2-chemistry-1' },
-                        { title: 'المحاضرة 2', url: 'null' },
+                        { title: 'المحاضرة 2', url: 'https://t.me/dentaItechnician_bot?start=phase_2-chemistry-2' },
                         // (أكمل باقي المحاضرات هنا)
                     ] 
                 },
