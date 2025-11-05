@@ -72,7 +72,18 @@ const APP_DATA = {
         {
             "id": 1,
             "title": "المرحلة الاولى",
-            "subjects": null
+            "subjects": [
+                {
+                    "id": 1,
+                    "title": "التشريح عملي",
+                    "videos": [
+                        {
+                            "id": "Ks5atZ6iiW4",
+                            "title": "(1) رسم central incisor العلوي part 1"
+                        }
+                    ]
+                }
+            ]
         },
         {
             "id": 2,
