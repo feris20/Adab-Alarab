@@ -33,18 +33,10 @@ const APP_DATA = {
             "subjects": [
                 {
                     "id": 1,
-                    "title": "كيمياء",
+                    "title": "الكيمياء",
                     "content": [
                         {
                             "url": "https://t.me/dentaItechnician_bot?start=pdf_1",
-                            "title": "المحاضرة 1 - لكجر 1 نظري"
-                        },
-                        {
-                            "url": "https://t.me/dentaItechnician_bot?start=pdf_2",
-                            "title": "المحاضرة 1 - كيمياء 1 نظري"
-                        },
-                        {
-                            "url": "https://t.me/dentaItechnician_bot?start=pdf_3",
                             "title": "المحاضرة 1 - كيمياء ١ نظري"
                         }
                     ]
@@ -84,13 +76,7 @@ const APP_DATA = {
             "subjects": null
         }
     ],
-    "technicianDaily": [
-        {
-            "id": 1,
-            "url": "https://www.instagram.com/reel/DQoy-4fCuIS/?igsh=bGFyNHJucHRzcGV2",
-            "thumbnail": "https://cdn.pixabay.com/photo/2021/06/15/12/14/instagram-6338393_1280.png"
-        }
-    ]
+    "technicianDaily": []
 };
 
 // =================================================================
