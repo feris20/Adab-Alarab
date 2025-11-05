@@ -92,7 +92,18 @@ const APP_DATA = {
         {
             "id": 2,
             "title": "المرحلة الثانية",
-            "subjects": null
+            "subjects": [
+                {
+                    "id": 1,
+                    "title": "الطقم الكامل",
+                    "videos": [
+                        {
+                            "id": "tMbF9ZQLm1g",
+                            "title": "(1) ريكورد بيس record base Lower"
+                        }
+                    ]
+                }
+            ]
         },
         {
             "id": 3,
