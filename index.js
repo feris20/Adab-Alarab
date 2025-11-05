@@ -30,7 +30,26 @@ const APP_DATA = {
         {
             "id": 2,
             "title": "المرحلة الثانية",
-            "subjects": null
+            "subjects": [
+                {
+                    "id": 1,
+                    "title": "كيمياء",
+                    "content": [
+                        {
+                            "url": "https://t.me/dentaItechnician_bot?start=pdf_1",
+                            "title": "المحاضرة 1 - لكجر 1 نظري"
+                        },
+                        {
+                            "url": "https://t.me/dentaItechnician_bot?start=pdf_2",
+                            "title": "المحاضرة 1 - كيمياء 1 نظري"
+                        },
+                        {
+                            "url": "https://t.me/dentaItechnician_bot?start=pdf_3",
+                            "title": "المحاضرة 1 - كيمياء ١ نظري"
+                        }
+                    ]
+                }
+            ]
         },
         {
             "id": 3,
