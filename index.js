@@ -12,137 +12,62 @@ const ArrowRightIcon = (className = '') => `
 
 const InstagramIcon = (className = '') => `
   <svg class="${className}" viewBox="0 0 24 24" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
-    <path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.85s-.011 3.584-.069 4.85c-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07s-3.584-.012-4.85-.07c-3.252-.148-4.771-1.691-4.919-4.919-.058-1.265-.069-1.645-.069-4.85s.011-3.584.069-4.85c.149-3.225 1.664-4.771 4.919-4.919 1.266-.057 1.644-.069 4.85-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948s.014 3.667.072 4.947c.2 4.359 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072s3.667-.014 4.947-.072c4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.947s-.014-3.667-.072-4.947c-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.948-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.162 6.162 6.162 6.162-2.759 6.162-6.162-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4s1.791-4 4-4 4 1.79 4 4-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.441 1.441 1.441 1.441-.645 1.441-1.441-.645-1.44-1.441-1.44z" />
+    <path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.85s-.011 3.584-.069 4.85c-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07s-3.584-.012-4.85-.07c-3.252-.148-4.771-1.691-4.919-4.919-.058-1.265-.069-1.645-.069-4.85s.011-3.584.069-4.85c.149-3.225 1.664 4.771 4.919-4.919 1.266-.057 1.644-.069 4.85-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948s.014 3.667.072 4.947c.2 4.359 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072s3.667-.014 4.947-.072c4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.947s-.014-3.667-.072-4.947c-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.948-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.162 6.162 6.162 6.162-2.759 6.162-6.162-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4s1.791-4 4-4 4 1.79 4 4-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.441 1.441 1.441 1.441-.645 1.441-1.441-.645-1.44-1.441-1.44z" />
   </svg>`;
 
 // =================================================================
-// --- 💡 بيانات التطبيق (المكان الوحيد الذي تحتاج تعديله) ---
+// --- 💡 بيانات التطبيق (لا تقم بتعديل هذا القسم يدوياً!) ---
+// --- سيقوم البوت بتحديث هذا الكائن تلقائياً ---
 // =================================================================
 
-// --- روابط الأزرار الجديدة (قم بتغييرها هنا) ---
-const UPLOAD_FILE_URL = 'https://t.me/dentaItechnician_bot?start=submit_file'; // رابط تحميل ملف إلى الموقع
-const LOADED_FILES_URL = 'https://t.me/dentaItechnician_bot?start=student_files'; // رابط الملفات المحملة
-
 const APP_DATA = {
-    // --- بيانات المحاضرات الدراسية ---
-    stages: [
-        { 
-            id: 1, 
-            title: 'المرحلة الاولى', 
-            subjects: [
-                { 
-                    id: 1, 
-                    title: 'المادة السنية', 
-                    content: [
-                        { title: 'المحاضرة 1', url: 'null' },
-                        { title: 'المحاضرة 2', url: 'null' },
-                        { title: 'المحاضرة 3', url: 'null' },
-                        { title: 'مادة سنية ١٠', url: 'https://t.me/dentaItechnician_bot?start=phase_1-dental_material-1' },
-
-                        // (لإضافة محاضرة جديدة، انسخ السطر الاعلى وغيّر الرابط والعنوان)
-                    ] 
-                },
-                { 
-                    id: 2, 
-                    title: 'تشريح الأسنان', 
-                    content: [
-                        { title: 'المحاضرة 1', url: 'null' },
-                        { title: 'المحاضرة 2', url: 'null' },
-                        { title: 'المحاضرة 3', url: 'null' },
-                        // (أكمل باقي المحاضرات هنا)
-                    ]
-                },
-                { 
-                    id: 3, 
-                    title: 'أجهزة الأسنان', 
-                    content: [
-                        { title: 'المحاضرة 1', url: 'null' },
-                        // (أكمل باقي المحاضرات هنا)
-                    ] 
-                },
-            ]
+    "stages": [
+        {
+            "id": 1,
+            "title": "المرحلة الاولى",
+            "subjects": null
         },
-        { 
-            id: 2, 
-            title: 'المرحلة الثانية', 
-            subjects: [
-                { 
-                    id: 1, 
-                    title: 'تيجان وجسور', 
-                    content: [
-                        { title: 'المحاضرة 1', url: 'null' },
-                        { title: 'المحاضرة 2', url: 'null' },
-                        // (أكمل باقي المحاضرات هنا)
-                    ]
-                },
-                { 
-                    id: 2, 
-                    title: 'الطقم الكامل', 
-                    content: [
-                        { title: 'المحاضرة 1', url: 'null' },
-                        { title: 'المحاضرة 2', url: 'null' },
-                        // (أكمل باقي المحاضرات هنا)
-                    ] 
-                }, 
-                { 
-                    id: 3, 
-                    title: 'كيمياء', 
-                    content: [
-                        { title: 'المحاضرة 1', url: 'https://t.me/dentaItechnician_bot?start=phase_2-chemistry-1' },
-                        { title: 'المحاضرة 2', url: 'https://t.me/dentaItechnician_bot?start=phase_2-chemistry-2' },
-                        // (أكمل باقي المحاضرات هنا)
-                    ] 
-                },
-              
-            ]
+        {
+            "id": 2,
+            "title": "المرحلة الثانية",
+            "subjects": null
         },
-        { id: 3, title: 'المرحلة الثالثة', subjects: null }, // (null) يعني "قيد التحديث"
-        { id: 4, title: 'المرحلة الرابعة', subjects: null }, // (null) يعني "قيد التحديث"
+        {
+            "id": 3,
+            "title": "المرحلة الثالثة",
+            "subjects": null
+        },
+        {
+            "id": 4,
+            "title": "المرحلة الرابعة",
+            "subjects": null
+        }
     ],
-
-    // --- بيانات فيديوهات اليوتيوب ---
-    youtube: [
-        { id: 1, title: 'المرحلة الاولى', subjects: null }, // (null) يعني "قيد التحديث"
-        { 
-            id: 2, 
-            title: 'المرحلة الثانية', 
-            subjects: [
-                { 
-                    id: 1, 
-                    title: 'طقم كامل', 
-                    videos: [
-                        { id: 'null', title: 'ريكورد بيس upper وlower' },
-                        { id: 'null', title: 'finishing the record base' },
-                        { id: 'null', title: 'بايت رم bite rim' },
-                        { id: 'null', title: 'mounting the cast on articulator' },
-                        // (لإضافة فيديو، ضع الـ ID والعنوان هنا)
-                    ]
-                },
-                { 
-                    id: 2, 
-                    title: 'تيجان وجسور', 
-                    videos: [
-                        { id: 'null', title: 'مقدمة في التيجان والجسور' },
-                        { id: 'null', title: 'تحضير السن للتاج' },
-                    ]
-                },
-            ]
+    "youtube": [
+        {
+            "id": 1,
+            "title": "المرحلة الاولى",
+            "subjects": null
         },
-        { id: 3, title: 'المرحلة الثالثة', subjects: null },
-        { id: 4, title: 'المرحلة الرابعة', subjects: null },
+        {
+            "id": 2,
+            "title": "المرحلة الثانية",
+            "subjects": null
+        },
+        {
+            "id": 3,
+            "title": "المرحلة الثالثة",
+            "subjects": null
+        },
+        {
+            "id": 4,
+            "title": "المرحلة الرابعة",
+            "subjects": null
+        }
     ],
-
-    // --- بيانات "Technician Daily" ---
-    technicianDaily: [
-        { id: 1, url: 'https://www.instagram.com/p/C27a-e4sZfQ/', thumbnail: 'https://ibb.co/VYKsKzvj' },
-        { id: 2, url: 'https://www.instagram.com/p/C2v8t05Mj3o/', thumbnail: 'https://ibb.co/VYKsKzvj' },
-        { id: 3, url: 'https://www.instagram.com/p/C2v8t05Mj3o/', thumbnail: 'https://ibb.co/VYKsKzvj' },
-        { id: 4, url: 'https://www.instagram.com/p/C2tS6h-sD_w/', thumbnail: 'https://ibb.co/VYKsKzvj' },
-        { id: 5, url: 'https://www.instagram.com/p/C2qW-uUMX2r/', thumbnail: 'https://ibb.co/VYKsKzvj' },
-        { id: 6, url: 'https://www.instagram.com/p/C2nhwQDs6Uo/', thumbnail: 'https://ibb.co/VYKsKzvj' },
-        // (لإضافة منشور، ضع الرابط ورابط الصورة المصغرة)
-    ]
+    "technicianDaily": []
 };
+
 // =================================================================
 // --- 💡 نهاية منطقة التعديل ---
 // =================================================================
@@ -154,6 +79,11 @@ const modal = document.getElementById('modal');
 const modalContent = modal.querySelector('.modal-content');
 const modalTitle = document.getElementById('modal-title');
 const modalBody = document.getElementById('modal-body');
+
+// --- روابط الأزرار الثابتة (يمكن تعديلها يدوياً إذا احتجت) ---
+const UPLOAD_FILE_URL = 'https://t.me/dentaItechnician_bot?start=submit_file'; // رابط تحميل ملف إلى الموقع
+const LOADED_FILES_URL = 'https://t.me/dentaItechnician_bot?start=student_files'; // رابط الملفات المحملة
+
 
 let viewStack = [{ name: 'home' }];
 
@@ -189,7 +119,7 @@ const UnderDevelopment = () => `
         <p class="text-gray-600">هذا القسم قيد التطوير حاليًا. يرجى التحقق مرة أخرى قريبًا!</p>
     </div>`;
 
-// --- RENDER LOGIC (تم تعديله ليقرأ من APP_DATA) ---
+// --- RENDER LOGIC (يقرأ من APP_DATA) ---
 const render = () => {
     const currentView = viewStack[viewStack.length - 1];
     let html = '';
@@ -217,10 +147,10 @@ const render = () => {
                 </div>
                 
                 <div class="mt-8 w-full max-w-xs mx-auto space-y-3">
-                    <a href="${UPLOAD_FILE_URL}" target="_blank" class="block w-full bg-white/10 text-white font-semibold py-2 px-4 rounded-lg shadow-md hover:bg-white/20 transition-colors duration-200 backdrop-blur-sm ${UPLOAD_FILE_URL === 'null' ? 'opacity-50 cursor-not-allowed' : ''}">
+                    <a href="${UPLOAD_FILE_URL}" target="_blank" class="block w-full bg-white/10 text-white font-semibold py-2 px-4 rounded-lg shadow-md hover:bg-white/20 transition-colors duration-200 backdrop-blur-sm ${!UPLOAD_FILE_URL || UPLOAD_FILE_URL === 'null' ? 'opacity-50 cursor-not-allowed' : ''}">
                         تحميل ملف إلى الموقع
                     </a>
-                    <a href="${LOADED_FILES_URL}" target="_blank" class="block w-full bg-white/10 text-white font-semibold py-2 px-4 rounded-lg shadow-md hover:bg-white/20 transition-colors duration-200 backdrop-blur-sm ${LOADED_FILES_URL === 'null' ? 'opacity-50 cursor-not-allowed' : ''}">
+                    <a href="${LOADED_FILES_URL}" target="_blank" class="block w-full bg-white/10 text-white font-semibold py-2 px-4 rounded-lg shadow-md hover:bg-white/20 transition-colors duration-200 backdrop-blur-sm ${!LOADED_FILES_URL || LOADED_FILES_URL === 'null' ? 'opacity-50 cursor-not-allowed' : ''}">
                         الملفات المحملة
                     </a>
                 </div>
@@ -244,7 +174,7 @@ const render = () => {
         case 'subjects':
             const stage = APP_DATA.stages.find(s => s.id === currentView.stageId);
             let subjectsContent;
-            if (!stage.subjects) {
+            if (!stage.subjects || stage.subjects.length === 0) {
                 subjectsContent = UnderDevelopment();
             } else {
                 subjectsContent = `
@@ -262,17 +192,23 @@ const render = () => {
         case 'lectures':
             const lStage = APP_DATA.stages.find(s => s.id === currentView.stageId);
             const subject = lStage.subjects.find(s => s.id === currentView.subjectId);
-            const lecturesContent = `
-                <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-4">
-                    ${subject.content.map(lecture => `
-                        <div class="flex flex-col items-center">
-                            <button data-action="lecture-click" data-url="${lecture.url}" class="w-full h-24 flex items-center justify-center bg-white rounded-xl shadow-md hover:shadow-lg transition-all duration-300 text-sky-700 font-bold text-lg ${!lecture.url || lecture.url === 'null' ? 'opacity-50 cursor-not-allowed' : 'hover:bg-sky-50'}">
-                                ${lecture.title.split(' ')[1]}
-                            </button>
-                            ${!lecture.url || lecture.url === 'null' ? '<p class="text-xs text-red-500 mt-1">المحتوى فارغ</p>' : ''}
-                        </div>
-                    `).join('')}
-                </div>`;
+            let lecturesContent;
+             if (!subject.content || subject.content.length === 0) {
+                lecturesContent = UnderDevelopment();
+            } else {
+                lecturesContent = `
+                    <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-4">
+                        ${subject.content.map(lecture => `
+                            <div class="flex flex-col items-center">
+                                <button data-action="lecture-click" data-url="${lecture.url}" class="w-full h-24 flex items-center justify-center bg-white rounded-xl shadow-md hover:shadow-lg transition-all duration-300 text-sky-700 font-bold text-lg ${!lecture.url || lecture.url === 'null' ? 'opacity-50 cursor-not-allowed' : 'hover:bg-sky-50'}">
+                                    ${lecture.title.match(/\d+/) ? lecture.title.match(/\d+/)[0] : lecture.title.substring(0, 2)}
+                                </button>
+                                <p class="text-sm text-gray-700 mt-2 text-center">${lecture.title}</p>
+                                ${!lecture.url || lecture.url === 'null' ? '<p class="text-xs text-red-500 mt-1">المحتوى فارغ</p>' : ''}
+                            </div>
+                        `).join('')}
+                    </div>`;
+            }
             html = PageWrapper(subject.title, lecturesContent);
             break;
             
@@ -291,7 +227,7 @@ const render = () => {
         case 'youtube_subjects':
             const ytStage = APP_DATA.youtube.find(s => s.id === currentView.stageId);
             let ytSubjectsContent;
-            if (!ytStage.subjects) {
+            if (!ytStage.subjects || ytStage.subjects.length === 0) {
                 ytSubjectsContent = UnderDevelopment();
             } else {
                 ytSubjectsContent = `
@@ -309,34 +245,48 @@ const render = () => {
         case 'youtube_videos':
             const ytvStage = APP_DATA.youtube.find(s => s.id === currentView.stageId);
             const ytvSubject = ytvStage.subjects.find(s => s.id === currentView.subjectId);
-            const videosContent = `
-                <div class="space-y-6">
-                    ${ytvSubject.videos.map(video => `
-                        <div class="bg-white rounded-xl shadow-md overflow-hidden">
-                            <div class="aspect-w-16 aspect-h-9" style="padding-bottom: 56.25%; position: relative;">
-                                <iframe src="https://www.youtube.com/embed/${video.id}" title="${video.title}" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen class="w-full h-full" style="position: absolute; top: 0; left: 0;"></iframe>
+            let videosContent;
+             if (!ytvSubject.videos || ytvSubject.videos.length === 0) {
+                videosContent = UnderDevelopment();
+            } else {
+                videosContent = `
+                    <div class="space-y-6">
+                        ${ytvSubject.videos.map(video => `
+                            <div class="bg-white rounded-xl shadow-md overflow-hidden">
+                                <div class${video.id && video.id !== 'null' ? ' aspect-w-16 aspect-h-9' : ' p-4 text-center text-gray-500'} style="padding-bottom: ${video.id && video.id !== 'null' ? '56.25%' : '0'}; position: relative;">
+                                    ${video.id && video.id !== 'null' ? `
+                                        <iframe src="https://www.youtube.com/embed/${video.id}" title="${video.title}" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen class="w-full h-full" style="position: absolute; top: 0; left: 0;"></iframe>
+                                    ` : `
+                                        <span>الفيديو قيد التحديث</span>
+                                    `}
+                                </div>
+                                <div class="p-4">
+                                    <h3 class="font-semibold text-gray-800">${video.title}</h3>
+                                </div>
                             </div>
-                            <div class="p-4">
-                                <h3 class="font-semibold text-gray-800">${video.title}</h3>
-                            </div>
-                        </div>
-                    `).join('')}
-                </div>`;
+                        `).join('')}
+                    </div>`;
+            }
             html = PageWrapper(ytvSubject.title, videosContent);
             break;
             
         case 'technician_daily':
-            const techDailyContent = `
-                <div class="grid grid-cols-2 md:grid-cols-3 gap-4">
-                    ${APP_DATA.technicianDaily.map(post => `
-                        <a href="${post.url}" target="_blank" rel="noopener noreferrer" class="group block relative aspect-square rounded-xl overflow-hidden shadow-lg">
-                            <img src="${post.thumbnail}" alt="Instagram post ${post.id}" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-300" />
-                            <div class="absolute inset-0 bg-black/40 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-300">
-                                ${InstagramIcon('w-12 h-12 text-white')}
-                            </div>
-                        </a>
-                    `).join('')}
-                </div>`;
+            let techDailyContent;
+            if (!APP_DATA.technicianDaily || APP_DATA.technicianDaily.length === 0) {
+                techDailyContent = UnderDevelopment();
+            } else {
+                techDailyContent = `
+                    <div class="grid grid-cols-2 md:grid-cols-3 gap-4">
+                        ${APP_DATA.technicianDaily.map(post => `
+                            <a href="${post.url}" target="_blank" rel="noopener noreferrer" class="group block relative aspect-square rounded-xl overflow-hidden shadow-lg">
+                                <img src="${post.thumbnail}" alt="Instagram post" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-300" />
+                                <div class="absolute inset-0 bg-black/40 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+                                    ${InstagramIcon('w-12 h-12 text-white')}
+                                </div>
+                            </a>
+                        `).join('')}
+                    </div>`;
+            }
             html = PageWrapper('Technician Daily', techDailyContent);
             break;
     }
