@@ -116,6 +116,16 @@ const APP_DATA = {
                             "title": "المحاضرة 5 - كومبليت لكجر ٥"
                         }
                     ]
+                },
+                {
+                    "id": 6,
+                    "title": "المادة السنية (عملي)",
+                    "content": [
+                        {
+                            "url": "https://t.me/dentaItechnician_bot?start=pdf_15",
+                            "title": "المحاضرة 4 - عملي لكجر ٤و٥"
+                        }
+                    ]
                 }
             ]
         },
