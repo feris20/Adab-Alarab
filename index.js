@@ -56,6 +56,10 @@ const APP_DATA = {
                         {
                             "url": "https://t.me/dentaItechnician_bot?start=pdf_13",
                             "title": "المحاضرة 2 - h"
+                        },
+                        {
+                            "url": "https://t.me/dentaItechnician_bot?start=pdf_14",
+                            "title": "المحاضرة 2 - كراون لكجر ٣"
                         }
                     ]
                 },
