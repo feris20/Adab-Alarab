@@ -51,15 +51,11 @@ const APP_DATA = {
                     "content": [
                         {
                             "url": "https://t.me/dentaItechnician_bot?start=pdf_3",
-                            "title": "المحاضرة 1 - 2 كراون"
-                        },
-                        {
-                            "url": "https://t.me/dentaItechnician_bot?start=pdf_13",
-                            "title": "المحاضرة 2 - h"
+                            "title": "المحاضرة 1/2 -  كراون"
                         },
                         {
                             "url": "https://t.me/dentaItechnician_bot?start=pdf_14",
-                            "title": "المحاضرة 2 - كراون لكجر ٣"
+                            "title": "المحاضرة 3 - كراون لكجر ٣"
                         }
                     ]
                 },
