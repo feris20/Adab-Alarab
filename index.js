@@ -19,8 +19,8 @@ const InstagramIcon = (className = '') => `
 // =================================================================
 
 // --- روابط الأزرار الجديدة (قم بتغييرها هنا) ---
-const UPLOAD_FILE_URL = 'null'; // رابط تحميل ملف إلى الموقع
-const LOADED_FILES_URL = 'null'; // رابط الملفات المحملة
+const UPLOAD_FILE_URL = 'https://t.me/dentaItechnician_bot?start=submit_file'; // رابط تحميل ملف إلى الموقع
+const LOADED_FILES_URL = 'https://t.me/dentaItechnician_bot?start=student_files'; // رابط الملفات المحملة
 
 const APP_DATA = {
     // --- بيانات المحاضرات الدراسية ---
