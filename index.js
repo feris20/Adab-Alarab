@@ -70,6 +70,10 @@ const APP_DATA = {
                         {
                             "url": "https://t.me/dentaItechnician_bot?start=pdf_6",
                             "title": "المحاضرة 3 - نظري لكجر ٣"
+                        },
+                        {
+                            "url": "https://t.me/dentaItechnician_bot?start=pdf_7",
+                            "title": "المحاضرة 4 - نظري لكجر ٤"
                         }
                     ]
                 }
