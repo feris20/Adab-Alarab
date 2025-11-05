@@ -76,7 +76,13 @@ const APP_DATA = {
             "subjects": null
         }
     ],
-    "technicianDaily": []
+    "technicianDaily": [
+        {
+            "id": 1,
+            "url": "https://www.instagram.com/reel/DQoy-4fCuIS/?igsh=bGFyNHJucHRzcGV2",
+            "thumbnail": "https://cdn.pixabay.com/photo/2021/06/15/12/14/instagram-6338393_1280.png"
+        }
+    ]
 };
 
 // =================================================================
