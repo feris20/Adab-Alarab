@@ -54,6 +54,16 @@ const APP_DATA = {
                             "title": "المحاضرة 1 - 2 كراون"
                         }
                     ]
+                },
+                {
+                    "id": 3,
+                    "title": "المادة السنية",
+                    "content": [
+                        {
+                            "url": "https://t.me/dentaItechnician_bot?start=pdf_4",
+                            "title": "المحاضرة 1 - نظري لكجر ١"
+                        }
+                    ]
                 }
             ]
         },
