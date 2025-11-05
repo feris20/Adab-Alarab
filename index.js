@@ -37,6 +37,7 @@ const APP_DATA = {
                         { title: 'المحاضرة 1', url: 'null' },
                         { title: 'المحاضرة 2', url: 'null' },
                         { title: 'المحاضرة 3', url: 'null' },
+                        { title: 'مادة سنية ١٠', url: 'https://t.me/dentaItechnician_bot?start=phase_1-dental_material-1' },
 
                         // (لإضافة محاضرة جديدة، انسخ السطر الاعلى وغيّر الرابط والعنوان)
                     ] 
