@@ -51,11 +51,15 @@ const APP_DATA = {
                     "content": [
                         {
                             "url": "https://t.me/dentaItechnician_bot?start=pdf_3",
-                            "title": "المحاضرة 1/2 -  كراون"
+                            "title": "المحاضرة 1 - 2 كراون"
+                        },
+                        {
+                            "url": "https://t.me/dentaItechnician_bot?start=pdf_13",
+                            "title": "المحاضرة 2 - h"
                         },
                         {
                             "url": "https://t.me/dentaItechnician_bot?start=pdf_14",
-                            "title": "المحاضرة 3 - كراون لكجر ٣"
+                            "title": "المحاضرة 2 - كراون لكجر ٣"
                         }
                     ]
                 },
@@ -78,6 +82,10 @@ const APP_DATA = {
                         {
                             "url": "https://t.me/dentaItechnician_bot?start=pdf_7",
                             "title": "المحاضرة 4 - نظري لكجر ٤"
+                        },
+                        {
+                            "url": "https://t.me/dentaItechnician_bot?start=pdf_16",
+                            "title": "المحاضرة 5 - نظري لكجر ٥"
                         },
                         {
                             "url": "https://t.me/dentaItechnician_bot?start=pdf_11",
